@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
-public class GenerateMesh02 : MonoBehaviour {
+public class GenerateMesh03 : MonoBehaviour {
     /* scratchpad */
     private MeshFilter mf;
     public SplineComponent spline;
     List<Vector3> pointList;
     Vertex[] verts;
-
+    
     public float fixedEdgeLoops = 3f;
-    [SerializeField] Vector3[] positions;
-    [SerializeField] Vector3[] normals;
-    [SerializeField] float[] uCoords;
-    [SerializeField] int[] lines;
+    Vector3[] positions;
+    Vector3[] normals;
+    float[] uCoords;
+    int[] lines;
 
     void Start () {
         mf = GetComponent<MeshFilter> ();
         pointList = new List<Vector3>();
+
+        // gets a 2D mesh's info : vertices, normals, lines 
+        GetMeshInfo(mf);
 
         // generate mesh from the start
         GenerateMesh ();
@@ -40,7 +43,7 @@ public class GenerateMesh02 : MonoBehaviour {
         {
             verts[i].point = positions[i];
             verts[i].normal = normals[i];
-            verts[i].uCoord = uCoords[i];
+            //verts[i].uCoord = uCoords[i];
         }
  
         return new ExtrudeShape (verts, lines);
@@ -54,6 +57,7 @@ public class GenerateMesh02 : MonoBehaviour {
         for (float t = 0; t <= 1; t += 1f/(fixedEdgeLoops-1)) {
             var point = spline.transform.InverseTransformPoint(spline.Hermite(t));
             var rotation = spline.GetOrientation3D(t, Vector3.up);
+            
             path.Add (new OrientedPoint (point, rotation));
         }
  
@@ -69,8 +73,6 @@ public class GenerateMesh02 : MonoBehaviour {
     }
  
     private void Extrude(Mesh mesh, ExtrudeShape shape, OrientedPoint[] path) {
-
-        shape = RotateMesh(shape);
 
         int vertsInShape = shape.verts.Length;
         int segments = path.Length - 1;
@@ -178,6 +180,45 @@ public class GenerateMesh02 : MonoBehaviour {
         }
 
         return new ShapeData(vertices, normals, uvs);
+    }
+
+    // converts mesh into data
+    public void MeshToDataConverter(Mesh mesh)
+    {
+        ShapeData shapeData;
+        shapeData.vertecies = mesh.vertices;
+        shapeData.normals = mesh.normals;
+    }
+
+    // gets a 2D mesh's info : vertices, normals, lines 
+    public void GetMeshInfo(MeshFilter mf)
+    {
+        // getting vertices
+        List<Vector3> meshVertices = new List<Vector3>();
+        foreach (var pos in mf.mesh.vertices) meshVertices.Add(pos);
+
+        // getting lines
+        List<int> meshLines = new List<int>();
+        for (int i = 0; i < mf.mesh.triangles.Length; i += 3)
+        {
+            meshLines.Add(mf.mesh.triangles[i]);
+            meshLines.Add(mf.mesh.triangles[i + 1]);
+
+            meshLines.Add(mf.mesh.triangles[i]);
+            meshLines.Add(mf.mesh.triangles[i + 2]);
+
+            meshLines.Add(mf.mesh.triangles[i + 1]);
+            meshLines.Add(mf.mesh.triangles[i + 2]);
+        }
+
+        // getting normals
+        List<Vector3> meshNormals = new List<Vector3>();
+        foreach(var n in mf.mesh.normals) meshNormals.Add(n);
+
+        // passing in the info to usable variables
+        positions = meshVertices.ToArray();
+        normals = meshNormals.ToArray();
+        lines = meshLines.ToArray();
     }
 
     // rotate mesh to a degree

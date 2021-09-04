@@ -109,12 +109,9 @@ public class SplineComponent : MonoBehaviour, ISpline
         return Vector3.Cross(delta, GetRight(t));
     }
 
-
     public Vector3 GetLeft(float t) => -GetRight(t);
 
-
     public Vector3 GetDown(float t) => -GetUp(t);
-
 
     public Vector3 GetBackward(float t) => -GetForward(t);
 
@@ -140,7 +137,6 @@ public class SplineComponent : MonoBehaviour, ISpline
 
     public int ControlPointCount { get { throw new System.NotImplementedException(); } }
 
-
     public Vector3 GetControlPoint(int index)
     {
         return points[index].position;
@@ -164,7 +160,6 @@ public class SplineComponent : MonoBehaviour, ISpline
         return closestPoint;
     }
 
-
     public Vector3 GetNonUniformPoint(float t)
     {
         switch (points.Count)
@@ -181,7 +176,6 @@ public class SplineComponent : MonoBehaviour, ISpline
                 return Hermite(t);
         }
     }
-
 
     public void InsertControlPoint(int index, Vector3 position)
     {
@@ -200,13 +194,11 @@ public class SplineComponent : MonoBehaviour, ISpline
         }
     }
 
-
     public void RemoveControlPoint(int index)
     {
         ResetIndex();
         points.RemoveAt(index);
     }
-
 
     public void SetControlPoint(int index, Vector3 position)
     {
