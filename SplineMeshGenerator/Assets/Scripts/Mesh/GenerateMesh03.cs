@@ -11,6 +11,7 @@ public class GenerateMesh03 : MonoBehaviour {
     Vertex[] verts;
     
     public float fixedEdgeLoops = 3f;
+    public Vector3 inititalRotation = new Vector3(0, 0, 0);
     Vector3[] positions;
     Vector3[] normals;
     float[] uCoords;
@@ -157,6 +158,14 @@ public class GenerateMesh03 : MonoBehaviour {
             totalLength += d;
         }
 
+        // rotate vertex to face a degree if we entered an angle
+        if (inititalRotation != Vector3.zero)
+            for (int i = 0; i < shape.verts.Length; i++)
+            {
+                // rorating the shape to the direction of the first point
+                shape.verts[i].point = RotateVertex(shape.verts[0].point, shape.verts[i].point, path);
+            }
+
         // foreach edgeLoop in the whole created mesh
         for (int i = 0; i < path.Length; i++)
         {
@@ -219,6 +228,19 @@ public class GenerateMesh03 : MonoBehaviour {
         positions = meshVertices.ToArray();
         normals = meshNormals.ToArray();
         lines = meshLines.ToArray();
+    }
+
+    // rotate vertex to face a degree
+    public Vector3 RotateVertex(Vector3 center, Vector3 vert, OrientedPoint[] path)
+    {
+        //the degrees the vertices are to be rotated, for example (0,90,0) 
+        Quaternion newRotation = new Quaternion();
+        newRotation.eulerAngles = inititalRotation;
+
+        // rotates the vertex
+        vert = newRotation * (vert - center) + center;
+
+        return vert;
     }
 
     // rotate mesh to a degree

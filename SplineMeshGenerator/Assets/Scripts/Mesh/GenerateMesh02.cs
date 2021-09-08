@@ -11,6 +11,7 @@ public class GenerateMesh02 : MonoBehaviour {
     Vertex[] verts;
 
     public float fixedEdgeLoops = 3f;
+    public Vector3 inititalRotation = new Vector3(0, 0, 0);
     [SerializeField] Vector3[] positions;
     [SerializeField] Vector3[] normals;
     [SerializeField] float[] uCoords;
@@ -54,6 +55,7 @@ public class GenerateMesh02 : MonoBehaviour {
         for (float t = 0; t <= 1; t += 1f/(fixedEdgeLoops-1)) {
             var point = spline.transform.InverseTransformPoint(spline.Hermite(t));
             var rotation = spline.GetOrientation3D(t, Vector3.up);
+            Debug.Log(rotation.eulerAngles);
             path.Add (new OrientedPoint (point, rotation));
         }
  
@@ -69,8 +71,6 @@ public class GenerateMesh02 : MonoBehaviour {
     }
  
     private void Extrude(Mesh mesh, ExtrudeShape shape, OrientedPoint[] path) {
-
-        shape = RotateMesh(shape);
 
         int vertsInShape = shape.verts.Length;
         int segments = path.Length - 1;
@@ -149,11 +149,19 @@ public class GenerateMesh02 : MonoBehaviour {
         // culculate total distance of the spline
         float totalLength = 0;
         float distanceCovered = 0;
-        for (int i = 0; i < path.Length - 1; i++)
+        for (int i = 0; i < path.Length-1; i++)
         {
             var d = Vector3.Distance(path[i].position, path[i + 1].position);
             totalLength += d;
         }
+
+        // rotate vertex to face a degree if we entered an angle
+        if (inititalRotation != Vector3.zero)
+            for (int i = 0; i < shape.verts.Length; i++)
+            {
+                // rorating the shape to the direction of the first point
+                shape.verts[i].point = RotateVertex(shape.verts[0].point, shape.verts[i].point, path); 
+            }
 
         // foreach edgeLoop in the whole created mesh
         for (int i = 0; i < path.Length; i++)
@@ -171,6 +179,7 @@ public class GenerateMesh02 : MonoBehaviour {
             for (int j = 0; j < vertsInShape; j++)
             {
                 int id = offset + j;
+
                 vertices[id] = path[i].LocalToWorld(shape.verts[j].point);
                 normals[id] = path[i].LocalToWorldDirection(shape.verts[j].normal);
                 uvs[id] = new Vector2(shape.verts[j].uCoord, v);
@@ -178,6 +187,20 @@ public class GenerateMesh02 : MonoBehaviour {
         }
 
         return new ShapeData(vertices, normals, uvs);
+    }
+    
+    // rotate vertex to face a degree
+    public Vector3 RotateVertex(Vector3 center, Vector3 vert, OrientedPoint[] path)
+    {
+        //the degrees the vertices are to be rotated, for example (0,90,0) 
+        Quaternion newRotation = new Quaternion();
+        //newRotation.eulerAngles = inititalRotation;
+        newRotation.eulerAngles = path[0].rotation.eulerAngles;
+
+        // rotates the vertex
+        vert = newRotation * (vert - center) + center;
+
+        return vert;
     }
 
     // rotate mesh to a degree
@@ -189,8 +212,9 @@ public class GenerateMesh02 : MonoBehaviour {
         Quaternion newRotation = new Quaternion();
         newRotation.eulerAngles = new Vector3(90, 0, 0);//the degrees the vertices are to be rotated, for example (0,90,0) 
 
+        //vertices being the array of vertices of your mesh
         for (int i = 0; i < vertices.Length; i++)
-        {//vertices being the array of vertices of your mesh
+        {
             vertices[i].point = newRotation * (vertices[i].point - center) + center;
         }
 

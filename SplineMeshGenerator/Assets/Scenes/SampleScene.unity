@@ -299,6 +299,66 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &611053207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 611053209}
+  - component: {fileID: 611053208}
+  m_Layer: 0
+  m_Name: Spline (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &611053208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611053207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43d84fcc74f9064cb3484606ade9e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closed: 0
+  points:
+  - position: {x: 0, y: 0, z: 3}
+    handleAPosition: {x: 0.038360596, y: 0, z: 1.7518063}
+    handleBPosition: {x: 0.015712738, y: 0.94593287, z: 4.407627}
+    normal: {x: 0, y: 0, z: 0}
+    forward: {x: 0, y: 0, z: 0}
+  - position: {x: 0, y: 2.7516756, z: 7.152504}
+    handleAPosition: {x: 0.015712738, y: 1.941452, z: 5.986435}
+    handleBPosition: {x: 0.08365631, y: 2.7516756, z: 8.430334}
+    normal: {x: 0, y: 0, z: 0}
+    forward: {x: 0, y: 0, z: 0}
+  layout2D: 0
+  splineColor: {r: 1, g: 1, b: 1, a: 1}
+  anchorPointColor: {r: 1, g: 1, b: 1, a: 1}
+  anglePointColor: {r: 1, g: 1, b: 1, a: 1}
+  anglePointLinesColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!4 &611053209
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611053207}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 60.8, y: 2.9, z: 29.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &782107246
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &782107247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,17 +390,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   closed: 0
   points:
-  - position: {x: 0, y: 0, z: 0.12903404}
-    handleAPosition: {x: 0, y: 0, z: 0.129034}
-    handleBPosition: {x: 0, y: 0, z: 0.129034}
+  - position: {x: -0.048007965, y: 17.484842, z: 10.7161255}
+    handleAPosition: {x: 0.30955887, y: 23.67783, z: 9.760292}
+    handleBPosition: {x: 0.010978699, y: 12.004892, z: 10.56937}
     normal: {x: 0, y: 0, z: 0}
     forward: {x: 0, y: 0, z: 0}
-  - position: {x: 0, y: 10, z: 0.129034}
-    handleAPosition: {x: 0, y: 10, z: 0.129034}
-    handleBPosition: {x: 0, y: 10, z: 0.129034}
+  - position: {x: 0.21463013, y: 0, z: 11.818171}
+    handleAPosition: {x: -0.13378525, y: 5.9988027, z: 11.770676}
+    handleBPosition: {x: 0.41603088, y: -4.119817, z: 11.916054}
     normal: {x: 0, y: 0, z: 0}
     forward: {x: 0, y: 0, z: 0}
-  layout2D: 0
+  layout2D: 1
   splineColor: {r: 1, g: 1, b: 1, a: 1}
   anchorPointColor: {r: 1, g: 1, b: 1, a: 1}
   anglePointColor: {r: 1, g: 1, b: 1, a: 1}
@@ -353,7 +413,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 782107246}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 62.2, y: -0.39, z: 29.82}
+  m_LocalPosition: {x: 60.8, y: 2.9, z: 29.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -408,7 +468,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3528191838269869761}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 100.84, y: 6.4, z: 29.9}
+  m_LocalPosition: {x: 100.84, y: 6.4, z: 36.308}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -434,8 +494,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7784d648709b81d4b8783688f5a8a00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 782107247}
-  fixedEdgeLoops: 7
+  spline: {fileID: 611053208}
+  fixedEdgeLoops: 2
+  inititalRotation: {x: 0, y: 0, z: 0}
   positions:
   - {x: 3, y: 0, z: 0}
   - {x: 3, y: 0, z: 0}
@@ -521,4 +582,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 782107247}
-  fixedEdgeLoops: 16
+  fixedEdgeLoops: 2
+  inititalRotation: {x: 0, y: 0, z: 0}
