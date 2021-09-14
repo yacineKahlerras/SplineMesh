@@ -164,25 +164,25 @@ public class GenerateMesh02 : MonoBehaviour {
             }
 
         // foreach edgeLoop in the whole created mesh
-        for (int i = 0; i < path.Length; i++)
+        for (int pointInPath = 0; pointInPath < path.Length; pointInPath++)
         {
             // distance covered for the v coordinates
-            int offset = i * vertsInShape;
-            if (i > 0)
+            int offset = pointInPath * vertsInShape;
+            if (pointInPath > 0)
             {
-                var d = Vector3.Distance(path[i].position, path[i - 1].position);
+                var d = Vector3.Distance(path[pointInPath].position, path[pointInPath - 1].position);
                 distanceCovered += d;
             }
             float v = distanceCovered / totalLength;
 
             // get world points of vertices and assign them
-            for (int j = 0; j < vertsInShape; j++)
+            for (int vert = 0; vert < vertsInShape; vert++)
             {
-                int id = offset + j;
+                int id = offset + vert;
 
-                vertices[id] = path[i].LocalToWorld(shape.verts[j].point);
-                normals[id] = path[i].LocalToWorldDirection(shape.verts[j].normal);
-                uvs[id] = new Vector2(shape.verts[j].uCoord, v);
+                vertices[id] = path[pointInPath].LocalToWorld(shape.verts[vert].point);
+                normals[id] = path[pointInPath].LocalToWorldDirection(shape.verts[vert].normal);
+                uvs[id] = new Vector2(shape.verts[vert].uCoord, v);
             }
         }
 

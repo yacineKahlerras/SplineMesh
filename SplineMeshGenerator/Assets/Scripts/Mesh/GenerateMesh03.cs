@@ -13,9 +13,10 @@ public class GenerateMesh03 : MonoBehaviour {
     public float fixedEdgeLoops = 3f;
     public Vector3 inititalRotation = new Vector3(0, 0, 0);
     Vector3[] positions;
-    Vector3[] normals;
+    Vector3[] normals, initialNormals;
     float[] uCoords;
     int[] lines;
+    int[] initialTriangles;
 
     void Start () {
         mf = GetComponent<MeshFilter> ();
@@ -27,7 +28,14 @@ public class GenerateMesh03 : MonoBehaviour {
         // generate mesh from the start
         GenerateMesh ();
     }
- 
+
+    // return a position from a vertex
+    public Vector3 GetVertexPos(int i)
+    {
+        mf = GetComponent<MeshFilter>();
+        return mf.mesh.vertices[i];
+    }
+
     // creates a mesh based on points and initiale shape
     private void GenerateMesh() {
         var mesh = GetMesh ();
@@ -70,6 +78,7 @@ public class GenerateMesh03 : MonoBehaviour {
         if (mf.sharedMesh == null) {
             mf.sharedMesh = new Mesh ();
         }
+
         return mf.sharedMesh;
     }
  
@@ -82,7 +91,8 @@ public class GenerateMesh03 : MonoBehaviour {
         int triCount = shape.lines.Length * segments;
         int triIndexCount = triCount * 3;
  
-        var triangleIndices = new int[triIndexCount*2];
+        //var triangleIndices = new int[triIndexCount*2];
+        var triangleIndices = new List<int>();
         var vertices = new Vector3[vertCount];
         var normals = new Vector3[vertCount];
         var uvs = new Vector2[vertCount];
@@ -94,19 +104,38 @@ public class GenerateMesh03 : MonoBehaviour {
         uvs = shapeData.UVs;
 
         // setting up Triangles
-        triangleIndices = TrianglesSetter(triangleIndices, vertsInShape, segments, shape);
+        triangleIndices = TrianglesSetter(triangleIndices, vertsInShape, segments, shape, path);
+
+        var shapeData2 = FacesAtEachEnd(vertices, normals, triangleIndices, initialTriangles, vertsInShape, path);
+        vertices = shapeData2.vertecies;
+        normals = shapeData2.normals;
+        triangleIndices = shapeData2.triangles;
 
         mesh.Clear ();
         mesh.vertices = vertices;
         mesh.normals = normals;
-        mesh.uv = uvs;
-        mesh.triangles = triangleIndices;
+        //mesh.uv = uvs;
+        mesh.triangles = triangleIndices.ToArray();
     }
 
     // setting up Triangles
-    public int[] TrianglesSetter(int[] triangleIndices, int vertsInShape, int segments, ExtrudeShape shape)
+    public List<int> TrianglesSetter(List<int> triangleIndices, int vertsInShape, int segments, ExtrudeShape shape, OrientedPoint[] path)
     {
-        int ti = 0;
+        /** PUTTING FACES AT EACH END OF THE MESH **/
+        // getting the info on the shape
+        /*int LastEdgeLoopOffset = (path.Length - 1) * vertsInShape;
+        int[] triangleIndicesForFaces = mf.mesh.triangles;
+
+        // first face at the start of the mesh
+        foreach (int triangleIndex in triangleIndicesForFaces) triangleIndices.Add(triangleIndex);
+            // adding the triangles indices backwards to see them from both sides
+        for (int i = triangleIndicesForFaces.Length - 1; i >= 0; i--) triangleIndices.Add(triangleIndicesForFaces[i]);
+
+        // second face at the end of the mesh
+        foreach (int triangleIndex in triangleIndicesForFaces) triangleIndices.Add(triangleIndex + LastEdgeLoopOffset);
+            // adding the triangles indices backwards to see them from both sides
+        for (int i = triangleIndicesForFaces.Length - 1; i >= 0; i--) triangleIndices.Add(triangleIndicesForFaces[i] + LastEdgeLoopOffset);*/
+
 
         // foreach edge loop
         for (int segment = 0; segment < segments; segment++)
@@ -124,26 +153,35 @@ public class GenerateMesh03 : MonoBehaviour {
                 int nextB = offset + shape.lines[LineIndice + 1] + vertsInShape;
 
                 // triangles on upper side
-                triangleIndices[ti] = currentB; ti++;
-                triangleIndices[ti] = currentA; ti++;
-                triangleIndices[ti] = nextA; ti++;
+                triangleIndices.Add(currentB); triangleIndices.Add(currentA); triangleIndices.Add(nextA);
+                triangleIndices.Add(nextA); triangleIndices.Add(nextB); triangleIndices.Add(currentB);
 
-                triangleIndices[ti] = nextA; ti++;
-                triangleIndices[ti] = nextB; ti++;
-                triangleIndices[ti] = currentB; ti++;
-
-                // reverse triangles on downside
-                triangleIndices[ti] = nextA; ti++;
-                triangleIndices[ti] = currentA; ti++;
-                triangleIndices[ti] = currentB; ti++;
-
-                triangleIndices[ti] = currentB; ti++;
-                triangleIndices[ti] = nextB; ti++;
-                triangleIndices[ti] = nextA; ti++;
+                // triangles on down side
+                triangleIndices.Add(nextA); triangleIndices.Add(currentA); triangleIndices.Add(currentB);
+                triangleIndices.Add(currentB); triangleIndices.Add(nextB); triangleIndices.Add(nextA);
             }
         }
 
         return triangleIndices;
+    }
+
+    // faces at the end of extruded shape
+    public ShapeData2 FacesAtEachEnd(Vector3[] vertices, Vector3[] normals, List<int> triangleIndices , int[] initialTriangles, int vertsInShape, OrientedPoint[] path)
+    {
+        // getting the vertices for the extruded shape
+        var myVertices = new List<Vector3>();
+        var myNormals = new List<Vector3>();
+        for (int i = 0; i < vertices.Length; i++) { myVertices.Add(vertices[i]); myNormals.Add(normals[i]); }
+
+        // last vertex index number
+        var vertOffset = myVertices.Count;
+        // adding new vertices for the face
+        for (int i = 0; i < vertsInShape; i++) myVertices.Add(myVertices[i]);
+        for (int i = 0; i < initialNormals.Length; i++) myNormals.Add(initialNormals[i]);
+        // making triangles between the new added vertices
+        for (int i = 0; i < initialTriangles.Length; i++) triangleIndices.Add(initialTriangles[i] + vertOffset);
+
+        return new ShapeData2(myVertices.ToArray(), myNormals.ToArray(), triangleIndices);
     }
 
     // vertecies , normals, UVs, distance covered setter
@@ -167,13 +205,13 @@ public class GenerateMesh03 : MonoBehaviour {
             }
 
         // foreach edgeLoop in the whole created mesh
-        for (int i = 0; i < path.Length; i++)
+        for (int edgeLoop = 0; edgeLoop < path.Length; edgeLoop++)
         {
             // distance covered for the v coordinates
-            int offset = i * vertsInShape;
-            if (i > 0)
+            int offset = edgeLoop * vertsInShape;
+            if (edgeLoop > 0)
             {
-                var d = Vector3.Distance(path[i].position, path[i - 1].position);
+                var d = Vector3.Distance(path[edgeLoop].position, path[edgeLoop - 1].position);
                 distanceCovered += d;
             }
             float v = distanceCovered / totalLength;
@@ -182,8 +220,8 @@ public class GenerateMesh03 : MonoBehaviour {
             for (int j = 0; j < vertsInShape; j++)
             {
                 int id = offset + j;
-                vertices[id] = path[i].LocalToWorld(shape.verts[j].point);
-                normals[id] = path[i].LocalToWorldDirection(shape.verts[j].normal);
+                vertices[id] = path[edgeLoop].LocalToWorld(shape.verts[j].point);
+                normals[id] = path[edgeLoop].LocalToWorldDirection(shape.verts[j].normal);
                 uvs[id] = new Vector2(shape.verts[j].uCoord, v);
             }
         }
@@ -219,15 +257,35 @@ public class GenerateMesh03 : MonoBehaviour {
             meshLines.Add(mf.mesh.triangles[i + 1]);
             meshLines.Add(mf.mesh.triangles[i + 2]);
         }
-
         // getting normals
         List<Vector3> meshNormals = new List<Vector3>();
-        foreach(var n in mf.mesh.normals) meshNormals.Add(n);
+        meshNormals = CalculateNormals(meshVertices);
 
         // passing in the info to usable variables
         positions = meshVertices.ToArray();
+        initialNormals = mf.mesh.normals;
+        initialTriangles = mf.mesh.triangles;
         normals = meshNormals.ToArray();
         lines = meshLines.ToArray();
+    }
+
+    // calculates the normals on a circle
+    public List<Vector3> CalculateNormals(List<Vector3> meshVertices)
+    {
+        // point for the diameter of the disc
+        var firstPos = meshVertices[0];
+        var secondPos = meshVertices[31];
+        var center = (firstPos + secondPos) / 2;
+
+        // for each point on the dic calculate the normal
+        List<Vector3> normals = new List<Vector3>();
+        for (int i = 0; i < meshVertices.Count; i++)
+        {
+            var newNormal = (meshVertices[i] - center).normalized;
+            normals.Add(newNormal);
+        }
+
+        return normals;
     }
 
     // rotate vertex to face a degree
@@ -328,5 +386,19 @@ public class GenerateMesh03 : MonoBehaviour {
             this.UVs = UVs;
         }
     }
+
+    // shape data 2 contain vertecies, normals, UVs
+    public struct ShapeData2
+    {
+        public Vector3[] vertecies;
+        public Vector3[] normals;
+        public List<int> triangles;
+
+        public ShapeData2(Vector3[] vertecies, Vector3[] normals, List<int> triangles)
+        {
+            this.vertecies = vertecies;
+            this.normals = normals;
+            this.triangles = triangles;
+        }
+    }
 }
- 
