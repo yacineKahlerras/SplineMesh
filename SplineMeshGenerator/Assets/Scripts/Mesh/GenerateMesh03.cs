@@ -106,10 +106,16 @@ public class GenerateMesh03 : MonoBehaviour {
         // setting up Triangles
         triangleIndices = TrianglesSetter(triangleIndices, vertsInShape, segments, shape, path);
 
-        var shapeData2 = FacesAtEachEnd(vertices, normals, triangleIndices, initialTriangles, vertsInShape, path);
+        ShapeData shapeData2 = CalculateTheNormals(vertices, triangleIndices.ToArray());
         vertices = shapeData2.vertecies;
         normals = shapeData2.normals;
         triangleIndices = shapeData2.triangles;
+
+        // faces at the end of extruded shape
+        var shapeData3 = FacesAtEachEnd(vertices, normals, triangleIndices, initialTriangles, vertsInShape, path);
+        vertices = shapeData3.vertecies;
+        normals = shapeData3.normals;
+        triangleIndices = shapeData3.triangles;
 
         mesh.Clear ();
         mesh.vertices = vertices;
@@ -121,22 +127,6 @@ public class GenerateMesh03 : MonoBehaviour {
     // setting up Triangles
     public List<int> TrianglesSetter(List<int> triangleIndices, int vertsInShape, int segments, ExtrudeShape shape, OrientedPoint[] path)
     {
-        /** PUTTING FACES AT EACH END OF THE MESH **/
-        // getting the info on the shape
-        /*int LastEdgeLoopOffset = (path.Length - 1) * vertsInShape;
-        int[] triangleIndicesForFaces = mf.mesh.triangles;
-
-        // first face at the start of the mesh
-        foreach (int triangleIndex in triangleIndicesForFaces) triangleIndices.Add(triangleIndex);
-            // adding the triangles indices backwards to see them from both sides
-        for (int i = triangleIndicesForFaces.Length - 1; i >= 0; i--) triangleIndices.Add(triangleIndicesForFaces[i]);
-
-        // second face at the end of the mesh
-        foreach (int triangleIndex in triangleIndicesForFaces) triangleIndices.Add(triangleIndex + LastEdgeLoopOffset);
-            // adding the triangles indices backwards to see them from both sides
-        for (int i = triangleIndicesForFaces.Length - 1; i >= 0; i--) triangleIndices.Add(triangleIndicesForFaces[i] + LastEdgeLoopOffset);*/
-
-
         // foreach edge loop
         for (int segment = 0; segment < segments; segment++)
         {
@@ -166,13 +156,14 @@ public class GenerateMesh03 : MonoBehaviour {
     }
 
     // faces at the end of extruded shape
-    public ShapeData2 FacesAtEachEnd(Vector3[] vertices, Vector3[] normals, List<int> triangleIndices , int[] initialTriangles, int vertsInShape, OrientedPoint[] path)
+    public ShapeData FacesAtEachEnd(Vector3[] vertices, Vector3[] normals, List<int> triangleIndices , int[] initialTriangles, int vertsInShape, OrientedPoint[] path)
     {
         // getting the vertices for the extruded shape
         var myVertices = new List<Vector3>();
         var myNormals = new List<Vector3>();
         for (int i = 0; i < vertices.Length; i++) { myVertices.Add(vertices[i]); myNormals.Add(normals[i]); }
 
+        /** Start Face **/
         // last vertex index number
         var vertOffset = myVertices.Count;
         // adding new vertices for the face
@@ -181,7 +172,22 @@ public class GenerateMesh03 : MonoBehaviour {
         // making triangles between the new added vertices
         for (int i = 0; i < initialTriangles.Length; i++) triangleIndices.Add(initialTriangles[i] + vertOffset);
 
-        return new ShapeData2(myVertices.ToArray(), myNormals.ToArray(), triangleIndices);
+        /** End Face **/
+        // offset for last edge loop
+        var lastEdgeLoopStartIndexOffset = (path.Length-1) * vertsInShape;
+        vertOffset = myVertices.Count;
+        // adding new vertices and normals on the last edgeLoop
+        for (int i = 0; i < vertsInShape; i++) myVertices.Add(myVertices[i + lastEdgeLoopStartIndexOffset]);
+        for (int i = 0; i < initialNormals.Length; i++) myNormals.Add(-initialNormals[i]);
+        // creating triangles on the newly created face
+        for (int i = 0; i < initialTriangles.Length; i+=3)
+        {
+            triangleIndices.Add(initialTriangles[i+2] + vertOffset);
+            triangleIndices.Add(initialTriangles[i+1] + vertOffset);
+            triangleIndices.Add(initialTriangles[i] + vertOffset);
+        }
+
+        return new ShapeData(myVertices.ToArray(), myNormals.ToArray(), triangleIndices);
     }
 
     // vertecies , normals, UVs, distance covered setter
@@ -378,27 +384,88 @@ public class GenerateMesh03 : MonoBehaviour {
         public Vector3[] vertecies;
         public Vector3[] normals;
         public Vector2[] UVs;
+        public List<int> triangles;
 
-        public ShapeData(Vector3[] vertecies, Vector3[] normals, Vector2[] UVs)
+        public ShapeData(Vector3[] vertecies, Vector3[] normals, Vector2[] UVs, List<int> triangles = null)
         {
             this.vertecies = vertecies;
             this.normals = normals;
             this.UVs = UVs;
+            this.triangles = triangles;
         }
-    }
 
-    // shape data 2 contain vertecies, normals, UVs
-    public struct ShapeData2
-    {
-        public Vector3[] vertecies;
-        public Vector3[] normals;
-        public List<int> triangles;
-
-        public ShapeData2(Vector3[] vertecies, Vector3[] normals, List<int> triangles)
+        public ShapeData(Vector3[] vertecies, Vector3[] normals, List<int> triangles, Vector2[] UVs = null)
         {
             this.vertecies = vertecies;
             this.normals = normals;
+            this.UVs = UVs;
             this.triangles = triangles;
         }
+    }
+
+    // calculates all the normals of the shape
+    public ShapeData CalculateTheNormals(Vector3[] vertices, int[] triangleIndices)
+    {
+        // getting the infos
+        var myVertices = new List<Vector3>();
+        var myNormals = new List<Vector3>();
+        var myTriangles = new List<int>();
+        foreach (var v in vertices) { myVertices.Add(v); myNormals.Add(Vector3.zero); }
+
+        // setting all vertices as havent seen before
+        var foundIndices = new Dictionary<Vector3, bool>();
+        for (int i = 0; i < myVertices.Count; i++) foundIndices.Add(myVertices[i], false);
+
+        // for each triangle
+        for (int triIndice = 0; triIndice < triangleIndices.Length; triIndice+=3)
+        {
+            // calculate triangle normal
+            var pointA = triangleIndices[triIndice + 0];
+            var pointB = triangleIndices[triIndice + 1];
+            var pointC = triangleIndices[triIndice + 2];
+            var normal = -GetTriangleNormal(myVertices, pointC, pointB, pointA);
+
+            // going thru each point of the triangle to see if we seen this or not
+            var points = new int[] { pointA, pointB, pointC };
+            int triPointsOffset = 0;
+            foreach(var p in points)
+            {
+                // if first time seeing this point then add a normal to it and move on
+                if (foundIndices[vertices[p]] == false)
+                {
+                    foundIndices[vertices[p]] = true;
+                    myNormals[p] = normal;
+                    triPointsOffset++;
+                }
+                // if not first time seeing it then make a new vertex and a new normal and replace it on the triangle
+                else
+                {
+                    myVertices.Add(myVertices[p]);
+                    myNormals.Add(normal);
+                    triangleIndices[triIndice + triPointsOffset] = myVertices.Count - 1;
+                    triPointsOffset++;
+                }
+            }
+        }
+
+        // normalizing all the normals
+        for (int i = 0; i < myNormals.Count; i++) myNormals[i].Normalize();
+        // putting all the information that we just made into a new triangle
+        foreach (var t in triangleIndices) myTriangles.Add(t);
+
+        return new ShapeData(myVertices.ToArray(), myNormals.ToArray(), myTriangles);
+    }
+
+    // calculates normal for a triangle
+    public Vector3 GetTriangleNormal(List<Vector3> vertices, int a, int b, int c)
+    {
+        var pointA = vertices[a];
+        var pointB = vertices[b];
+        var pointC = vertices[c];
+
+        var vectAB = pointB - pointA;
+        var vectAC = pointC - pointA;
+
+        return Vector3.Cross(vectAB, vectAC).normalized;
     }
 }
