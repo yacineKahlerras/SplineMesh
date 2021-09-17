@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TB;
 
 [RequireComponent(typeof(MeshFilter))]
 public class GenerateMesh03 : MonoBehaviour {
@@ -17,6 +18,7 @@ public class GenerateMesh03 : MonoBehaviour {
     float[] uCoords;
     int[] lines;
     int[] initialTriangles;
+    public float thresholdAngle, thresholdAngleINIT;
 
     void Start () {
         mf = GetComponent<MeshFilter> ();
@@ -27,6 +29,17 @@ public class GenerateMesh03 : MonoBehaviour {
 
         // generate mesh from the start
         GenerateMesh ();
+
+        thresholdAngleINIT = thresholdAngle;
+    }
+
+    private void Update()
+    {
+        if (thresholdAngleINIT != thresholdAngle)
+        {
+            GenerateMesh();
+            thresholdAngleINIT = thresholdAngle;
+        }
     }
 
     // return a position from a vertex
@@ -122,6 +135,9 @@ public class GenerateMesh03 : MonoBehaviour {
         mesh.normals = normals;
         //mesh.uv = uvs;
         mesh.triangles = triangleIndices.ToArray();
+
+        NormalSolver.RecalculateNormals(mesh, thresholdAngle);
+        NormalSolver.RecalculateTangents(mesh);
     }
 
     // setting up Triangles
@@ -407,6 +423,7 @@ public class GenerateMesh03 : MonoBehaviour {
     public ShapeData CalculateTheNormals(Vector3[] vertices, int[] triangleIndices)
     {
         // getting the infos
+        var cosineThreshold = Mathf.Cos(thresholdAngle * Mathf.Deg2Rad);
         var myVertices = new List<Vector3>();
         var myNormals = new List<Vector3>();
         var myTriangles = new List<int>();
@@ -423,7 +440,7 @@ public class GenerateMesh03 : MonoBehaviour {
             var pointA = triangleIndices[triIndice + 0];
             var pointB = triangleIndices[triIndice + 1];
             var pointC = triangleIndices[triIndice + 2];
-            var normal = -GetTriangleNormal(myVertices, pointC, pointB, pointA);
+            var normal = GetTriangleNormal(myVertices, pointA, pointB, pointC);
 
             // going thru each point of the triangle to see if we seen this or not
             var points = new int[] { pointA, pointB, pointC };
@@ -440,10 +457,21 @@ public class GenerateMesh03 : MonoBehaviour {
                 // if not first time seeing it then make a new vertex and a new normal and replace it on the triangle
                 else
                 {
-                    myVertices.Add(myVertices[p]);
-                    myNormals.Add(normal);
-                    triangleIndices[triIndice + triPointsOffset] = myVertices.Count - 1;
-                    triPointsOffset++;
+                    // The dot product is the cosine of the angle between the two triangles.
+                    // A larger cosine means a smaller angle.
+                    /*var dot = Vector3.Dot( normal, myNormals[p]);
+                    if (dot >= cosineThreshold)
+                    {
+                        myNormals[p] += normal;
+                        triPointsOffset++;
+                    }
+                    else
+                    {*/
+                        myVertices.Add(myVertices[p]);
+                        myNormals.Add(normal);
+                        triangleIndices[triIndice + triPointsOffset] = myVertices.Count - 1;
+                        triPointsOffset++;
+                    //}
                 }
             }
         }
