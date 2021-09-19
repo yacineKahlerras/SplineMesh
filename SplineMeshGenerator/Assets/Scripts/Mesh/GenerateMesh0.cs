@@ -4,7 +4,7 @@ using UnityEngine;
 using TB;
 
 [RequireComponent(typeof(MeshFilter))]
-public class GenerateMesh03 : MonoBehaviour {
+public class GenerateMesh0 : MonoBehaviour {
     /* scratchpad */
     [HideInInspector] public MeshFilter mf;
     public SplineComponent spline;
