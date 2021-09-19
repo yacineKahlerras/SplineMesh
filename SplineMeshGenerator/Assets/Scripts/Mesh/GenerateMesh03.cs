@@ -21,7 +21,7 @@ public class GenerateMesh03 : MonoBehaviour {
     public float thresholdAngle, thresholdAngleINIT;
     public float normalsGizmosLinesLength;
 
-    public List<int> randomList;
+    private List<int> randomList;
 
     public void addToRandomList(int i)
     {
@@ -69,13 +69,8 @@ public class GenerateMesh03 : MonoBehaviour {
     // gets the vertices, normals and uvs of the initiale shape
     private ExtrudeShape GetExtrudeShape() {
         verts = new Vertex[positions.Length];
-        for (int i = 0; i < verts.Length; i++)
-        {
-            verts[i].point = positions[i];
-            //verts[i].normal = normals[i];
-            //verts[i].uCoord = uCoords[i];
-        }
- 
+        for (int i = 0; i < verts.Length; i++) verts[i].point = positions[i];
+
         return new ExtrudeShape (verts, lines);
     }
  
@@ -127,7 +122,7 @@ public class GenerateMesh03 : MonoBehaviour {
         // setting up Triangles
         triangleIndices = TrianglesSetter(triangleIndices, vertsInShape, segments, shape, path);
 
-        ShapeData shapeData2 = CalculateTheNormals(vertices, triangleIndices.ToArray());
+        ShapeData shapeData2 = CalculateTheNormalsHardAngles(vertices, triangleIndices.ToArray());
         vertices = shapeData2.vertecies;
         normals = shapeData2.normals;
         triangleIndices = shapeData2.triangles;
@@ -145,7 +140,6 @@ public class GenerateMesh03 : MonoBehaviour {
         mesh.triangles = triangleIndices.ToArray();
 
         NormalSolver.RecalculateNormals(mesh, thresholdAngle);
-        NormalSolver.RecalculateTangents(mesh);
     }
 
     // setting up Triangles
@@ -266,14 +260,6 @@ public class GenerateMesh03 : MonoBehaviour {
         return new ShapeData(vertices, normals, uvs);
     }
 
-    // converts mesh into data
-    public void MeshToDataConverter(Mesh mesh)
-    {
-        ShapeData shapeData;
-        shapeData.vertecies = mesh.vertices;
-        shapeData.normals = mesh.normals;
-    }
-
     // gets a 2D mesh's info : vertices, normals, lines 
     public void GetMeshInfo(MeshFilter mf)
     {
@@ -283,17 +269,6 @@ public class GenerateMesh03 : MonoBehaviour {
 
         // getting lines
         List<int> meshLines = new List<int>();
-        /*for (int i = 0; i < mf.mesh.triangles.Length; i += 3)
-        {
-            meshLines.Add(mf.mesh.triangles[i]);
-            meshLines.Add(mf.mesh.triangles[i + 1]);
-
-            meshLines.Add(mf.mesh.triangles[i]);
-            meshLines.Add(mf.mesh.triangles[i + 2]);
-
-            meshLines.Add(mf.mesh.triangles[i + 1]);
-            meshLines.Add(mf.mesh.triangles[i + 2]);
-        }*/
         for (int i = 0; i < randomList.Count; i++)
         {
             meshLines.Add(randomList[i]);
@@ -301,35 +276,11 @@ public class GenerateMesh03 : MonoBehaviour {
             else meshLines.Add(randomList[0]);
         }
 
-        // getting normals
-        List<Vector3> meshNormals = new List<Vector3>();
-        //meshNormals = CalculateNormals(meshVertices);
-
         // passing in the info to usable variables
         positions = meshVertices.ToArray();
         initialNormals = mf.mesh.normals;
         initialTriangles = mf.mesh.triangles;
-        //normals = meshNormals.ToArray();
         lines = meshLines.ToArray();
-    }
-
-    // calculates the normals on a circle
-    public List<Vector3> CalculateNormals(List<Vector3> meshVertices)
-    {
-        // point for the diameter of the disc
-        var firstPos = meshVertices[0];
-        var secondPos = meshVertices[31];
-        var center = (firstPos + secondPos) / 2;
-
-        // for each point on the dic calculate the normal
-        List<Vector3> normals = new List<Vector3>();
-        for (int i = 0; i < meshVertices.Count; i++)
-        {
-            var newNormal = (meshVertices[i] - center).normalized;
-            normals.Add(newNormal);
-        }
-
-        return normals;
     }
 
     // rotate vertex to face a degree
@@ -345,23 +296,71 @@ public class GenerateMesh03 : MonoBehaviour {
         return vert;
     }
 
-    // rotate mesh to a degree
-    public ExtrudeShape RotateMesh(ExtrudeShape shape)
+    // calculates all the normals of the shape
+    public ShapeData CalculateTheNormalsHardAngles(Vector3[] vertices, int[] triangleIndices)
     {
-        var vertices = shape.verts;
+        // getting the infos
+        var cosineThreshold = Mathf.Cos(thresholdAngle * Mathf.Deg2Rad);
+        var myVertices = new List<Vector3>();
+        var myNormals = new List<Vector3>();
+        var myTriangles = new List<int>();
+        foreach (var v in vertices) { myVertices.Add(v); myNormals.Add(Vector3.zero); }
 
-        Vector3 center = vertices[0].point;//any V3 you want as the pivot point.
-        Quaternion newRotation = new Quaternion();
-        newRotation.eulerAngles = new Vector3(90, 0, 0);//the degrees the vertices are to be rotated, for example (0,90,0) 
+        // setting all vertices as havent seen before
+        var foundIndices = new Dictionary<Vector3, bool>();
+        for (int i = 0; i < myVertices.Count; i++) foundIndices.Add(myVertices[i], false);
 
-        for (int i = 0; i < vertices.Length; i++)
-        {//vertices being the array of vertices of your mesh
-            vertices[i].point = newRotation * (vertices[i].point - center) + center;
+        // for each triangle
+        for (int triIndice = 0; triIndice < triangleIndices.Length; triIndice += 3)
+        {
+            // calculate triangle normal
+            var pointA = triangleIndices[triIndice + 0];
+            var pointB = triangleIndices[triIndice + 1];
+            var pointC = triangleIndices[triIndice + 2];
+            var normal = GetTriangleNormal(myVertices, pointA, pointB, pointC);
+
+            // going thru each point of the triangle to see if we seen this or not
+            var points = new int[] { pointA, pointB, pointC };
+            int triPointsOffset = 0;
+            foreach (var p in points)
+            {
+                // if first time seeing this point then add a normal to it and move on
+                if (foundIndices[vertices[p]] == false)
+                {
+                    foundIndices[vertices[p]] = true;
+                    myNormals[p] = normal;
+                    triPointsOffset++;
+                }
+                // if not first time seeing it then make a new vertex and a new normal and replace it on the triangle
+                else
+                {
+                    myVertices.Add(myVertices[p]);
+                    myNormals.Add(normal);
+                    triangleIndices[triIndice + triPointsOffset] = myVertices.Count - 1;
+                    triPointsOffset++;
+                }
+            }
         }
 
-        shape.verts = vertices;
+        // normalizing all the normals
+        for (int i = 0; i < myNormals.Count; i++) myNormals[i].Normalize();
+        // putting all the information that we just made into a new triangle
+        foreach (var t in triangleIndices) myTriangles.Add(t);
 
-        return shape;
+        return new ShapeData(myVertices.ToArray(), myNormals.ToArray(), myTriangles);
+    }
+
+    // calculates normal for a triangle
+    public Vector3 GetTriangleNormal(List<Vector3> vertices, int a, int b, int c)
+    {
+        var pointA = vertices[a];
+        var pointB = vertices[b];
+        var pointC = vertices[c];
+
+        var vectAB = pointB - pointA;
+        var vectAC = pointC - pointA;
+
+        return Vector3.Cross(vectAB, vectAC);//.normalized;
     }
 
     // shape data
@@ -439,83 +438,5 @@ public class GenerateMesh03 : MonoBehaviour {
             this.UVs = UVs;
             this.triangles = triangles;
         }
-    }
-
-    // calculates all the normals of the shape
-    public ShapeData CalculateTheNormals(Vector3[] vertices, int[] triangleIndices)
-    {
-        // getting the infos
-        var cosineThreshold = Mathf.Cos(thresholdAngle * Mathf.Deg2Rad);
-        var myVertices = new List<Vector3>();
-        var myNormals = new List<Vector3>();
-        var myTriangles = new List<int>();
-        foreach (var v in vertices) { myVertices.Add(v); myNormals.Add(Vector3.zero); }
-
-        // setting all vertices as havent seen before
-        var foundIndices = new Dictionary<Vector3, bool>();
-        for (int i = 0; i < myVertices.Count; i++) foundIndices.Add(myVertices[i], false);
-
-        // for each triangle
-        for (int triIndice = 0; triIndice < triangleIndices.Length; triIndice+=3)
-        {
-            // calculate triangle normal
-            var pointA = triangleIndices[triIndice + 0];
-            var pointB = triangleIndices[triIndice + 1];
-            var pointC = triangleIndices[triIndice + 2];
-            var normal = GetTriangleNormal(myVertices, pointA, pointB, pointC);
-
-            // going thru each point of the triangle to see if we seen this or not
-            var points = new int[] { pointA, pointB, pointC };
-            int triPointsOffset = 0;
-            foreach(var p in points)
-            {
-                // if first time seeing this point then add a normal to it and move on
-                if (foundIndices[vertices[p]] == false)
-                {
-                    foundIndices[vertices[p]] = true;
-                    myNormals[p] = normal;
-                    triPointsOffset++;
-                }
-                // if not first time seeing it then make a new vertex and a new normal and replace it on the triangle
-                else
-                {
-                    // The dot product is the cosine of the angle between the two triangles.
-                    // A larger cosine means a smaller angle.
-                    /*var dot = Vector3.Dot( normal, myNormals[p]);
-                    if (dot >= cosineThreshold)
-                    {
-                        myNormals[p] += normal;
-                        triPointsOffset++;
-                    }
-                    else
-                    {*/
-                        myVertices.Add(myVertices[p]);
-                        myNormals.Add(normal);
-                        triangleIndices[triIndice + triPointsOffset] = myVertices.Count - 1;
-                        triPointsOffset++;
-                    //}
-                }
-            }
-        }
-
-        // normalizing all the normals
-        for (int i = 0; i < myNormals.Count; i++) myNormals[i].Normalize();
-        // putting all the information that we just made into a new triangle
-        foreach (var t in triangleIndices) myTriangles.Add(t);
-
-        return new ShapeData(myVertices.ToArray(), myNormals.ToArray(), myTriangles);
-    }
-
-    // calculates normal for a triangle
-    public Vector3 GetTriangleNormal(List<Vector3> vertices, int a, int b, int c)
-    {
-        var pointA = vertices[a];
-        var pointB = vertices[b];
-        var pointC = vertices[c];
-
-        var vectAB = pointB - pointA;
-        var vectAC = pointC - pointA;
-
-        return Vector3.Cross(vectAB, vectAC).normalized;
     }
 }

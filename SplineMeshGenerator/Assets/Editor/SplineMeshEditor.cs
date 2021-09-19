@@ -17,8 +17,8 @@ public class SplineMeshEditor : Editor
         vertices = mf.sharedMesh.vertices;
         normals = mf.sharedMesh.normals;
 
-        if (vertices != null) for
-                (int i = 0; i < vertices.Length; i++)
+        if (vertices != null)
+            for(int i = 0; i < vertices.Length; i++)
                 if (VertexButton(splineMesh, vertices[i])) splineMesh.addToRandomList(i);
     }
 
