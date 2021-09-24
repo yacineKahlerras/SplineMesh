@@ -21,12 +21,17 @@ public class GenerateMesh03 : MonoBehaviour {
     public float thresholdAngle, thresholdAngleINIT;
     public float normalsGizmosLinesLength;
 
-    private List<int> randomList;
+    public List<int> meshLineIndices; // the indices that make the lines of the shape
+    public bool drawNormals = true, drawVertexButtons = true, drawGizmoLines = true, closedMesh = true;
+    public enum TypesOfSelectingVertices { Dragging, Clicking } // type of selection of vertices
+    public TypesOfSelectingVertices selectVerticesBy; // type of selection of vertices
+    public List<Vector3> edgeLoopCenters = new List<Vector3>(); // centers of each edgeLoop
+    public Vector3 centerOfMesh; // center of the mech
+    
+    public float scale;
 
-    public void addToRandomList(int i)
-    {
-        randomList.Add(i);
-    }
+    // adds to the list of line indices
+    public void addMeshLineIndices(int i) => meshLineIndices.Add(i);
 
     void Start () {
         mf = GetComponent<MeshFilter> ();
@@ -48,6 +53,8 @@ public class GenerateMesh03 : MonoBehaviour {
             GenerateMesh();
             thresholdAngleINIT = thresholdAngle;
         }
+
+        mf.mesh.vertices = EdgeLoopScaler(mf.mesh.vertices, edgeLoopCenters[0], 64, scale);
     }
 
     // return a position from a vertex
@@ -138,7 +145,6 @@ public class GenerateMesh03 : MonoBehaviour {
         mesh.normals = normals;
         //mesh.uv = uvs;
         mesh.triangles = triangleIndices.ToArray();
-
         NormalSolver.RecalculateNormals(mesh, thresholdAngle);
     }
 
@@ -255,9 +261,24 @@ public class GenerateMesh03 : MonoBehaviour {
                 normals[id] = path[edgeLoop].LocalToWorldDirection(shape.verts[j].normal);
                 uvs[id] = new Vector2(shape.verts[j].uCoord, v);
             }
+
+            // get the center of each edgeloop
+            edgeLoopCenters.Add(path[edgeLoop].LocalToWorld(centerOfMesh));
         }
 
         return new ShapeData(vertices, normals, uvs);
+    }
+
+    // scales all vertices of an edgeLoop relative to a center
+    public Vector3[] EdgeLoopScaler(Vector3[] vertices, Vector3 center, int vertsInEdgeLoop, float scale)
+    {
+        for (int i = 0; i < vertsInEdgeLoop; i++)
+        {
+            var dist = vertices[i] - center;
+            vertices[i] += dist * scale;
+        }
+
+        return vertices;
     }
 
     // gets a 2D mesh's info : vertices, normals, lines 
@@ -269,11 +290,12 @@ public class GenerateMesh03 : MonoBehaviour {
 
         // getting lines
         List<int> meshLines = new List<int>();
-        for (int i = 0; i < randomList.Count; i++)
+        for (int i = 0; i < meshLineIndices.Count; i++)
         {
-            meshLines.Add(randomList[i]);
-            if(i < randomList.Count-1) meshLines.Add(randomList[i + 1]);
-            else meshLines.Add(randomList[0]);
+            meshLines.Add(meshLineIndices[i]);
+            if (i < meshLineIndices.Count - 1) meshLines.Add(meshLineIndices[i + 1]);
+            else if (closedMesh && i == meshLineIndices.Count - 1) meshLines.Add(meshLineIndices[0]);
+            else if (!closedMesh && i == meshLineIndices.Count - 1) meshLines.RemoveAt(meshLineIndices.Count - 1);
         }
 
         // passing in the info to usable variables
@@ -281,6 +303,7 @@ public class GenerateMesh03 : MonoBehaviour {
         initialNormals = mf.mesh.normals;
         initialTriangles = mf.mesh.triangles;
         lines = meshLines.ToArray();
+        centerOfMesh = mf.mesh.bounds.center; // get center of initial mesh
     }
 
     // rotate vertex to face a degree
