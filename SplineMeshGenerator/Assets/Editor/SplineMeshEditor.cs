@@ -20,6 +20,22 @@ public class SplineMeshEditor : Editor
         normals = mf.sharedMesh.normals;
 
         LineMaker();
+
+        if (splineMesh.edgeLoopIndices.Keys.Count>0)
+        {
+            /*for (int i = 0; i < splineMesh.edgeLoopIndices[0].Count; i++)
+            {
+                VertexButton(splineMesh, splineMesh.edgeLoopIndices[0][i]);
+                Debug.Log("i : " + i + 
+                        ", index : " + splineMesh.edgeLoopIndices[0][i] + 
+                        ", position : " + splineMesh.edgeLoopIndices[0][i]);
+            }*/
+
+            foreach (var v in vertices)
+            {
+                Debug.Log(v);
+            }
+        }
     }
 
     // verifies the lines
