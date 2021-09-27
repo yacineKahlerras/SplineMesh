@@ -144,8 +144,8 @@ public class GenerateMesh0 : MonoBehaviour {
         //mesh.uv = uvs;
         mesh.triangles = triangleIndices.ToArray();
 
-        NormalSolver.RecalculateNormals(mesh, thresholdAngle);
-        NormalSolver.RecalculateTangents(mesh);
+        /*NormalSolver.RecalculateNormals(mesh, thresholdAngle);
+        NormalSolver.RecalculateTangents(mesh);*/
     }
 
     // setting up Triangles

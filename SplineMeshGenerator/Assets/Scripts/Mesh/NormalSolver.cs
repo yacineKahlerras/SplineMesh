@@ -28,6 +28,8 @@ namespace TB
 {
     public static class NormalSolver
     {
+        static GenerateMesh03 splineMesh;
+
         public static void UnweldVertices(Mesh mesh)
         {
             Vector3[] vertices = mesh.vertices;
@@ -51,6 +53,8 @@ namespace TB
                     unweldedUVs[j] = uvs[triangles[j]];
                     unweldedTriangles[j] = currVertex; //the unwelded triangle array will contain global progressive vertex indexes (1, 2, 3, ...)
                     currVertex++;
+
+                    splineMesh.updateEdgeLoopVerts(triangles[j], j); // updates the edgeLoop vertex indices
                 }
 
                 unweldedVerticesList.AddRange(unweldedVertices);
@@ -78,8 +82,9 @@ namespace TB
         ///     The smoothing angle. Note that triangles that already share
         ///     the same vertex will be smooth regardless of the angle! 
         /// </param>
-        public static void RecalculateNormals(this Mesh mesh, float angle)
+        public static void RecalculateNormals(this Mesh mesh, float angle, Transform transformOfSplineMesh)
         {
+            transformOfSplineMesh.TryGetComponent(out splineMesh);
             UnweldVertices(mesh);
 
             float cosineThreshold = Mathf.Cos(angle * Mathf.Deg2Rad);

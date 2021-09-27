@@ -29,8 +29,10 @@ public class GenerateMesh03 : MonoBehaviour {
     public List<Vector3> edgeLoopCenters = new List<Vector3>(); // centers of each edgeLoop
     public Vector3 centerOfMesh; // center of the mesh
     
-    public float scale;
-    public Dictionary<int, List<Vector3>> edgeLoopIndices = new Dictionary<int, List<Vector3>>(); // gets verts for each edgeLoop
+    public float scale = 1;
+    public float pastScale = 1;
+    Dictionary<int, List<int>> temporaryEdgeLoopIndices = new Dictionary<int, List<int>>(); // gets verts for each edgeLoop
+    public Dictionary<int, List<int>> mainEdgeLoopIndices = new Dictionary<int, List<int>>();
 
     // adds to the list of line indices
     public void addMeshLineIndices(int i) => meshLineIndices.Add(i);
@@ -56,7 +58,7 @@ public class GenerateMesh03 : MonoBehaviour {
             thresholdAngleINIT = thresholdAngle;
         }
 
-        //mf.mesh.vertices = EdgeLoopScaler(mf.mesh.vertices, edgeLoopCenters[0], scale);
+        EdgeLoopScaler();
     }
 
     // return a position from a vertex
@@ -98,7 +100,8 @@ public class GenerateMesh03 : MonoBehaviour {
         // gets verts for each edgeLoop
         for (int i = 0; i < fixedEdgeLoops; i++)
         {
-            edgeLoopIndices.Add(i, new List<Vector3>());
+            temporaryEdgeLoopIndices.Add(i, new List<int>());
+            mainEdgeLoopIndices.Add(i, new List<int>());
         }
  
         return path.ToArray ();
@@ -137,23 +140,18 @@ public class GenerateMesh03 : MonoBehaviour {
         // setting up Triangles
         triangleIndices = TrianglesSetter(triangleIndices, vertsInShape, segments, shape, path);
 
-        /*ShapeData shapeData2 = CalculateTheNormalsHardAngles(vertices, triangleIndices.ToArray());
-        vertices = shapeData2.vertecies;
-        normals = shapeData2.normals;
-        triangleIndices = shapeData2.triangles;*/
-
         // faces at the end of extruded shape
-        /*var shapeData3 = FacesAtEachEnd(vertices, normals, triangleIndices, initialTriangles, vertsInShape, path);
+        var shapeData3 = FacesAtEachEnd(vertices, normals, triangleIndices, initialTriangles, vertsInShape, path);
         vertices = shapeData3.vertecies;
         normals = shapeData3.normals;
-        triangleIndices = shapeData3.triangles;*/
+        triangleIndices = shapeData3.triangles;
 
         mesh.Clear ();
         mesh.vertices = vertices;
         mesh.normals = normals;
         //mesh.uv = uvs;
         mesh.triangles = triangleIndices.ToArray();
-        NormalSolver.RecalculateNormals(mesh, thresholdAngle);
+        NormalSolver.RecalculateNormals(mesh, thresholdAngle, transform);
     }
 
     // setting up Triangles
@@ -202,7 +200,7 @@ public class GenerateMesh03 : MonoBehaviour {
         for (int i = 0; i < vertsInShape; i++)
         {
             myVertices.Add(myVertices[i]);
-            //edgeLoopIndices[0].Add(myVertices.Count - 1); // gets verts for each edgeLoop
+            temporaryEdgeLoopIndices[0].Add(myVertices.Count - 1); // gets verts for each edgeLoop
         }
         for (int i = 0; i < initialNormals.Length; i++) myNormals.Add(initialNormals[i]);
         // making triangles between the new added vertices
@@ -222,7 +220,7 @@ public class GenerateMesh03 : MonoBehaviour {
         for (int i = 0; i < vertsInShape; i++)
         {
             myVertices.Add(myVertices[i + lastEdgeLoopStartIndexOffset]);
-            //edgeLoopIndices[path.Length - 1].Add(myVertices.Count - 1); // gets verts for each edgeLoop
+            temporaryEdgeLoopIndices[path.Length - 1].Add(myVertices.Count - 1); // gets verts for each edgeLoop
         }
         for (int i = 0; i < initialNormals.Length; i++) myNormals.Add(-initialNormals[i]);
         // creating triangles on the newly created face
@@ -277,7 +275,7 @@ public class GenerateMesh03 : MonoBehaviour {
                 normals[id] = path[edgeLoop].LocalToWorldDirection(shape.verts[vert].normal);
                 uvs[id] = new Vector2(shape.verts[vert].uCoord, v);
                 
-                edgeLoopIndices[0].Add(vertices[id]); // gets verts for each edgeLoop
+                temporaryEdgeLoopIndices[edgeLoop].Add(id); // gets verts for each edgeLoop
             }
 
             // get the center of each edgeloop
@@ -288,17 +286,26 @@ public class GenerateMesh03 : MonoBehaviour {
     }
 
     // scales all vertices of an edgeLoop relative to a center
-    /*public Vector3[] EdgeLoopScaler(Vector3[] vertices, Vector3 center, float scale)
+    public void EdgeLoopScaler()
     {
-        for (int v = 0; v < edgeLoopIndices[0].Count; v++)
-        {
-            var vertIndice = edgeLoopIndices[0][v];
-            var dist = vertices[vertIndice] - center;
-            vertices[vertIndice] += dist * scale;
-        }
+        var vertices = mf.mesh.vertices;
+        var center = edgeLoopCenters[0];
 
-        return vertices;
-    }*/
+        if (scale != pastScale && scale!=0)
+        {
+            for (int indice = 0; indice < mainEdgeLoopIndices[0].Count; indice++)
+            {
+                var vertIndice = mainEdgeLoopIndices[0][indice];
+                var currentDist = vertices[vertIndice] - center;
+                var originalDist = currentDist / pastScale;
+                var scaledDist = originalDist * scale;
+                vertices[vertIndice] = scaledDist + center;
+            }
+
+            mf.mesh.vertices = vertices;
+            pastScale = scale;
+        }
+    }
 
     // gets a 2D mesh's info : vertices, normals, lines 
     public void GetMeshInfo(MeshFilter mf)
@@ -338,87 +345,23 @@ public class GenerateMesh03 : MonoBehaviour {
         return vert;
     }
 
-    // calculates all the normals of the shape
-    public ShapeData CalculateTheNormalsHardAngles(Vector3[] vertices, int[] triangleIndices)
+    // update the new edgeLoop vertices
+    public void updateEdgeLoopVerts(int indice, int newIndice)
     {
-        // getting the infos
-        var cosineThreshold = Mathf.Cos(thresholdAngle * Mathf.Deg2Rad);
-        var myVertices = new List<Vector3>();
-        var myNormals = new List<Vector3>();
-        var myTriangles = new List<int>();
-        foreach (var v in vertices) { myVertices.Add(v); myNormals.Add(Vector3.zero); }
-
-        // setting all vertices as havent seen before
-        var foundIndices = new Dictionary<Vector3, bool>();
-        for (int i = 0; i < myVertices.Count; i++) foundIndices.Add(myVertices[i], false);
-
-        // for each triangle
-        for (int triIndice = 0; triIndice < triangleIndices.Length; triIndice += 3)
+        bool found = false;
+        for (int edgeLoop = 0; edgeLoop < temporaryEdgeLoopIndices.Keys.Count; edgeLoop++)
         {
-            // calculate triangle normal
-            var pointA = triangleIndices[triIndice + 0];
-            var pointB = triangleIndices[triIndice + 1];
-            var pointC = triangleIndices[triIndice + 2];
-            var normal = GetTriangleNormal(myVertices, pointA, pointB, pointC);
-
-            // going thru each point of the triangle to see if we seen this or not
-            var points = new int[] { pointA, pointB, pointC };
-            int triPointsOffset = 0;
-            foreach (var p in points)
+            for (int index = 0; index < temporaryEdgeLoopIndices[edgeLoop].Count; index++)
             {
-                // if first time seeing this point then add a normal to it and move on
-                if (foundIndices[vertices[p]] == false)
+                if(indice == temporaryEdgeLoopIndices[edgeLoop][index])
                 {
-                    foundIndices[vertices[p]] = true;
-                    myNormals[p] = normal;
-                    triPointsOffset++;
-                }
-                // if not first time seeing it then make a new vertex and a new normal and replace it on the triangle
-                else
-                {
-                    myVertices.Add(myVertices[p]);
-                    myNormals.Add(normal);
-                    triangleIndices[triIndice + triPointsOffset] = myVertices.Count - 1;
-                    triPointsOffset++;
-
-                    // gets verts for each edgeLoop
-                    /*bool breakLoop = false;
-                    for (int key = 0; key < edgeLoopIndices.Keys.Count; key++)
-                    {
-                        for (int vertIndice = 0; vertIndice < edgeLoopIndices[key].Count; vertIndice++)
-                        {
-                            if (vertIndice == p)
-                            {
-                                breakLoop = true;
-                                edgeLoopIndices[key].Add(p);
-                                break;
-                            }
-                        }
-                        if (breakLoop) break;
-                    }*/
+                    mainEdgeLoopIndices[edgeLoop].Add(newIndice);
+                    found = true;
+                    break;
                 }
             }
+            if (found) break;
         }
-
-        // normalizing all the normals
-        for (int i = 0; i < myNormals.Count; i++) myNormals[i].Normalize();
-        // putting all the information that we just made into a new triangle
-        foreach (var t in triangleIndices) myTriangles.Add(t);
-
-        return new ShapeData(myVertices.ToArray(), myNormals.ToArray(), myTriangles);
-    }
-
-    // calculates normal for a triangle
-    public Vector3 GetTriangleNormal(List<Vector3> vertices, int a, int b, int c)
-    {
-        var pointA = vertices[a];
-        var pointB = vertices[b];
-        var pointC = vertices[c];
-
-        var vectAB = pointB - pointA;
-        var vectAC = pointC - pointA;
-
-        return Vector3.Cross(vectAB, vectAC);//.normalized;
     }
 
     // shape data

@@ -1039,4 +1039,5 @@ MonoBehaviour:
   selectVerticesBy: 0
   edgeLoopCenters: []
   centerOfMesh: {x: 0, y: 0, z: 0}
-  scale: 0
+  scale: 1
+  pastScale: 1
