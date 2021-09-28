@@ -19,18 +19,19 @@ public class GenerateMesh03 : MonoBehaviour {
     float[] uCoords;
     int[] lines;
     int[] initialTriangles;
-    public float thresholdAngle, thresholdAngleINIT;
+    public float thresholdAngle;
+    float thresholdAngleINIT;
     public float normalsGizmosLinesLength;
 
     public List<int> meshLineIndices; // the indices that make the lines of the shape
-    public bool drawNormals = true, drawVertexButtons = true, drawGizmoLines = true, closedMesh = true;
+    public bool drawNormals = true, drawVertexButtons = true, drawGizmoLines = true;
     public enum TypesOfSelectingVertices { Dragging, Clicking } // type of selection of vertices
     public TypesOfSelectingVertices selectVerticesBy; // type of selection of vertices
-    public List<Vector3> edgeLoopCenters = new List<Vector3>(); // centers of each edgeLoop
-    public Vector3 centerOfMesh; // center of the mesh
+    List<Vector3> edgeLoopCenters = new List<Vector3>(); // centers of each edgeLoop
+    Vector3 centerOfMesh; // center of the mesh
     
-    public float scale = 1;
-    public float pastScale = 1;
+    public List<float> edgeLoopScales = new List<float>();
+    List<float> tempEdgeLoopScales = new List<float>();
     Dictionary<int, List<int>> temporaryEdgeLoopIndices = new Dictionary<int, List<int>>(); // gets verts for each edgeLoop
     public Dictionary<int, List<int>> mainEdgeLoopIndices = new Dictionary<int, List<int>>();
 
@@ -100,10 +101,13 @@ public class GenerateMesh03 : MonoBehaviour {
         // gets verts for each edgeLoop
         for (int i = 0; i < fixedEdgeLoops; i++)
         {
-            temporaryEdgeLoopIndices.Add(i, new List<int>());
             mainEdgeLoopIndices.Add(i, new List<int>());
+            temporaryEdgeLoopIndices.Add(i, new List<int>());
+
+            edgeLoopScales.Add(1);
+            tempEdgeLoopScales.Add(1);
         }
- 
+
         return path.ToArray ();
     }
  
@@ -289,21 +293,29 @@ public class GenerateMesh03 : MonoBehaviour {
     public void EdgeLoopScaler()
     {
         var vertices = mf.mesh.vertices;
-        var center = edgeLoopCenters[0];
 
-        if (scale != pastScale && scale!=0)
+        for (int edgeLoopIndex = 0; edgeLoopIndex < edgeLoopScales.Count; edgeLoopIndex++)
         {
-            for (int indice = 0; indice < mainEdgeLoopIndices[0].Count; indice++)
-            {
-                var vertIndice = mainEdgeLoopIndices[0][indice];
-                var currentDist = vertices[vertIndice] - center;
-                var originalDist = currentDist / pastScale;
-                var scaledDist = originalDist * scale;
-                vertices[vertIndice] = scaledDist + center;
-            }
+            var center = edgeLoopCenters[edgeLoopIndex];
 
-            mf.mesh.vertices = vertices;
-            pastScale = scale;
+            if (edgeLoopScales[edgeLoopIndex] != tempEdgeLoopScales[edgeLoopIndex])
+            {
+                for (int indice = 0; indice < mainEdgeLoopIndices[edgeLoopIndex].Count; indice++)
+                {
+                    var scale = edgeLoopScales[edgeLoopIndex];
+                    var pastScale = tempEdgeLoopScales[edgeLoopIndex];
+                    var vertIndice = mainEdgeLoopIndices[edgeLoopIndex][indice];
+
+                    var currentDist = vertices[vertIndice] - center;
+                    var originalDist = currentDist / pastScale;
+                    var scaledDist = originalDist * scale;
+
+                    vertices[vertIndice] = scaledDist + center;
+                }
+
+                mf.mesh.vertices = vertices;
+                tempEdgeLoopScales[edgeLoopIndex] = edgeLoopScales[edgeLoopIndex];
+            }
         }
     }
 
@@ -320,8 +332,7 @@ public class GenerateMesh03 : MonoBehaviour {
         {
             meshLines.Add(meshLineIndices[i]);
             if (i < meshLineIndices.Count - 1) meshLines.Add(meshLineIndices[i + 1]);
-            else if (closedMesh && i == meshLineIndices.Count - 1) meshLines.Add(meshLineIndices[0]);
-            else if (!closedMesh && i == meshLineIndices.Count - 1) meshLines.RemoveAt(meshLineIndices.Count - 1);
+            else if (i == meshLineIndices.Count - 1) meshLines.Add(meshLineIndices[i]);
         }
 
         // passing in the info to usable variables

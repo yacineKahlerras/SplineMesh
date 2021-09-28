@@ -11,6 +11,11 @@ public class SplineMeshEditor : Editor
     static GenerateMesh03 splineMesh;
     int currentIndex, previousIndex;
 
+    public override void OnInspectorGUI()
+    {
+        base.DrawDefaultInspector();
+    }
+
     private void OnSceneGUI()
     {
         // get data from the shape
@@ -102,17 +107,6 @@ public class SplineMeshEditor : Editor
             {
                 pointA = meshLinesIndices[i];
                 pointB = meshLinesIndices[i + 1];
-
-                from = splineMesh.transform.TransformPoint(vertices[pointA]);
-                to = splineMesh.transform.TransformPoint(vertices[pointB]);
-
-                Gizmos.color = Color.cyan;
-                Gizmos.DrawLine(from, to);
-            }
-            else if(splineMesh.closedMesh)
-            {
-                pointA = meshLinesIndices[i];
-                pointB = meshLinesIndices[0];
 
                 from = splineMesh.transform.TransformPoint(vertices[pointA]);
                 to = splineMesh.transform.TransformPoint(vertices[pointB]);
