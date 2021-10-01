@@ -85,7 +85,7 @@ namespace TB
         public static void RecalculateNormals(this Mesh mesh, float angle, Transform transformOfSplineMesh)
         {
             transformOfSplineMesh.TryGetComponent(out splineMesh);
-            UnweldVertices(mesh);
+            if(!splineMesh.hasUnweldedVerts)UnweldVertices(mesh);
 
             float cosineThreshold = Mathf.Cos(angle * Mathf.Deg2Rad);
 

@@ -760,7 +760,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3528191838269869761}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 2534964839176971238, guid: 390ef7e878dc11f4098bdb5cde2f4421, type: 3}
 --- !u!114 &3528191838269869760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,6 +841,7 @@ GameObject:
   - component: {fileID: 3528191838269869757}
   - component: {fileID: 3528191838269869760}
   - component: {fileID: 3528191838269869762}
+  - component: {fileID: 3528191838269869763}
   m_Layer: 0
   m_Name: SplineMesh
   m_TagString: Untagged
@@ -865,10 +866,29 @@ MonoBehaviour:
   fixedEdgeLoops: 6
   inititalRotation: {x: 0, y: 0, z: 0}
   thresholdAngle: 80
-  normalsGizmosLinesLength: 0.18
-  meshLineIndices: 0a000000000000006e000000780000000a000000
+  normalsGizmosLinesLength: 0.37
+  meshLineIndices: 1b00000019000000170000001500000013000000110000000f0000000d0000000b0000000a000000080000000600000004000000020000000100000000000000030000000500000007000000090000000c0000000e00000010000000120000001400000016000000180000001a0000001c0000001e0000001f0000001d0000001b000000
   drawNormals: 0
   drawVertexButtons: 0
   drawGizmoLines: 0
-  selectVerticesBy: 1
+  selectVerticesBy: 0
   edgeLoopScales: []
+  hasUnweldedVerts: 0
+--- !u!114 &3528191838269869763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3528191838269869761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 304f5b21dfcc0a744a9c63a25f957b76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyList:
+  - AnGO: {fileID: 0}
+    AnInt: 28
+    AnFloat: -2.7
+    AnVector3: {x: -0.21, y: 0, z: 0}
+    AnIntArray: 

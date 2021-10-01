@@ -12,7 +12,7 @@ public class GenerateMesh03 : MonoBehaviour {
     List<Vector3> pointList;
     Vertex[] verts;
     
-    public float fixedEdgeLoops = 3f;
+    [Range(2, Mathf.Infinity)] public int fixedEdgeLoops = 2;
     public Vector3 inititalRotation = new Vector3(0, 0, 0);
     Vector3[] positions;
     Vector3[] normals, initialNormals;
@@ -34,6 +34,7 @@ public class GenerateMesh03 : MonoBehaviour {
     List<float> tempEdgeLoopScales = new List<float>();
     Dictionary<int, List<int>> temporaryEdgeLoopIndices = new Dictionary<int, List<int>>(); // gets verts for each edgeLoop
     public Dictionary<int, List<int>> mainEdgeLoopIndices = new Dictionary<int, List<int>>();
+    [HideInInspector] public bool hasUnweldedVerts = false;
 
     // adds to the list of line indices
     public void addMeshLineIndices(int i) => meshLineIndices.Add(i);
@@ -44,18 +45,18 @@ public class GenerateMesh03 : MonoBehaviour {
 
         // gets a 2D mesh's info : vertices, normals, lines 
         GetMeshInfo(mf);
+        thresholdAngleINIT = thresholdAngle;
 
         // generate mesh from the start
         GenerateMesh ();
-
-        thresholdAngleINIT = thresholdAngle;
+        hasUnweldedVerts = true;
     }
 
     private void Update()
     {
         if (thresholdAngleINIT != thresholdAngle)
         {
-            GenerateMesh();
+            NormalSolver.RecalculateNormals(mf.mesh, thresholdAngle, transform);
             thresholdAngleINIT = thresholdAngle;
         }
 
@@ -251,14 +252,6 @@ public class GenerateMesh03 : MonoBehaviour {
             totalLength += d;
         }
 
-        // rotate vertex to face a degree if we entered an angle
-        if (inititalRotation != Vector3.zero)
-            for (int i = 0; i < shape.verts.Length; i++)
-            {
-                // rorating the shape to the direction of the first point
-                shape.verts[i].point = RotateVertex(shape.verts[0].point, shape.verts[i].point, path);
-            }
-
         // foreach edgeLoop in the whole created mesh
         for (int edgeLoop = 0; edgeLoop < path.Length; edgeLoop++)
         {
@@ -315,6 +308,7 @@ public class GenerateMesh03 : MonoBehaviour {
 
                 mf.mesh.vertices = vertices;
                 tempEdgeLoopScales[edgeLoopIndex] = edgeLoopScales[edgeLoopIndex];
+                NormalSolver.RecalculateNormals(mf.mesh, thresholdAngle, transform);
             }
         }
     }
@@ -344,14 +338,10 @@ public class GenerateMesh03 : MonoBehaviour {
     }
 
     // rotate vertex to face a degree
-    public Vector3 RotateVertex(Vector3 center, Vector3 vert, OrientedPoint[] path)
+    public Vector3 RotateVertex(Vector3 center, Vector3 vert, Quaternion angle)
     {
-        //the degrees the vertices are to be rotated, for example (0,90,0) 
-        Quaternion newRotation = new Quaternion();
-        newRotation.eulerAngles = inititalRotation;
-
         // rotates the vertex
-        vert = newRotation * (vert - center) + center;
+        vert = angle * (vert - center) + center;
 
         return vert;
     }

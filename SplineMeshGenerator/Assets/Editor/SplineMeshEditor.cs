@@ -13,7 +13,22 @@ public class SplineMeshEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        base.DrawDefaultInspector();
+        //base.DrawDefaultInspector();
+        splineMesh = target as GenerateMesh03;
+
+        splineMesh.spline = (SplineComponent) EditorGUILayout.ObjectField("Spline", splineMesh.spline, typeof(GenerateMesh03), false);
+        splineMesh.fixedEdgeLoops = Mathf.Clamp(EditorGUILayout.IntField("EdgeLoops", splineMesh.fixedEdgeLoops), 2, int.MaxValue);
+        splineMesh.inititalRotation = EditorGUILayout.Vector3Field("Rotation", splineMesh.inititalRotation);
+        splineMesh.thresholdAngle = Mathf.Clamp(EditorGUILayout.FloatField("Threshhold Angle", splineMesh.thresholdAngle), 0, 360);
+        splineMesh.normalsGizmosLinesLength = EditorGUILayout.FloatField("Normals line length", splineMesh.normalsGizmosLinesLength);
+
+        EditorGUILayout.BeginHorizontal();
+        splineMesh.drawNormals = GUILayout.Toggle(splineMesh.drawNormals, "Normals", "button");
+        splineMesh.drawVertexButtons = GUILayout.Toggle(splineMesh.drawVertexButtons, "Vertices Buttons", "button");
+        splineMesh.drawGizmoLines = GUILayout.Toggle(splineMesh.drawGizmoLines, "Shape Lines", "button");
+        EditorGUILayout.EndHorizontal();
+
+        splineMesh.selectVerticesBy = (GenerateMesh03.TypesOfSelectingVertices) EditorGUILayout.EnumPopup("Select Vertices By", splineMesh.selectVerticesBy);
     }
 
     private void OnSceneGUI()
