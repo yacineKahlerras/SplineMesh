@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditorInternal;
 
 [CustomEditor(typeof(GenerateMesh03))]
 public class SplineMeshEditor : Editor
@@ -9,26 +10,45 @@ public class SplineMeshEditor : Editor
     static Vector3[] vertices, normals;
     MeshFilter mf;
     static GenerateMesh03 splineMesh;
-    int currentIndex, previousIndex;
+    bool listHeaderClicked = true;
+    private ReorderableList meshLineIndicesList;
+    private ReorderableList edgeLoopScalesList;
+
+    private void OnEnable()
+    {
+        meshLineIndicesList = CreateList("meshLineIndices", "Index", meshLineIndicesList);
+        //edgeLoopScalesList = CreateList("edgeLoopScales", "Scale", edgeLoopScalesList);
+
+        meshLineIndicesList.serializedProperty.ClearArray();
+    }
 
     public override void OnInspectorGUI()
     {
-        //base.DrawDefaultInspector();
         splineMesh = target as GenerateMesh03;
 
+        // mesh basic parameters
         splineMesh.spline = (SplineComponent) EditorGUILayout.ObjectField("Spline", splineMesh.spline, typeof(GenerateMesh03), false);
         splineMesh.fixedEdgeLoops = Mathf.Clamp(EditorGUILayout.IntField("EdgeLoops", splineMesh.fixedEdgeLoops), 2, int.MaxValue);
         splineMesh.inititalRotation = EditorGUILayout.Vector3Field("Rotation", splineMesh.inititalRotation);
         splineMesh.thresholdAngle = Mathf.Clamp(EditorGUILayout.FloatField("Threshhold Angle", splineMesh.thresholdAngle), 0, 360);
         splineMesh.normalsGizmosLinesLength = EditorGUILayout.FloatField("Normals line length", splineMesh.normalsGizmosLinesLength);
 
+        // inspector mesh modifiers buttons
         EditorGUILayout.BeginHorizontal();
         splineMesh.drawNormals = GUILayout.Toggle(splineMesh.drawNormals, "Normals", "button");
         splineMesh.drawVertexButtons = GUILayout.Toggle(splineMesh.drawVertexButtons, "Vertices Buttons", "button");
         splineMesh.drawGizmoLines = GUILayout.Toggle(splineMesh.drawGizmoLines, "Shape Lines", "button");
         EditorGUILayout.EndHorizontal();
 
+        // enum for selection
         splineMesh.selectVerticesBy = (GenerateMesh03.TypesOfSelectingVertices) EditorGUILayout.EnumPopup("Select Vertices By", splineMesh.selectVerticesBy);
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        
+        meshLineIndicesList = UpdateList("Mesh Line Indices", meshLineIndicesList);
+        //UpdateList("Edge Loop Scales", edgeLoopScalesList);
     }
 
     private void OnSceneGUI()
@@ -40,6 +60,63 @@ public class SplineMeshEditor : Editor
         normals = mf.sharedMesh.normals;
 
         LineMaker();
+    }
+
+    ReorderableList CreateList(string varName, string elementsName, ReorderableList reorderableList)
+    {
+        reorderableList = new ReorderableList(serializedObject,
+                serializedObject.FindProperty(varName),
+                false, false, false, true);
+
+        reorderableList.drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) => {
+            var element = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
+            rect.y += 2;
+            EditorGUI.PropertyField(new Rect(rect.x, rect.y, rect.width,
+                EditorGUIUtility.singleLineHeight), element, new GUIContent(elementsName));
+        };
+
+        return reorderableList;
+    }
+
+    ReorderableList UpdateList(string listLabel, ReorderableList reorderableList)
+    {
+        // mesh line indices list
+        EditorGUILayout.BeginHorizontal();
+        listHeaderClicked = EditorGUILayout.BeginFoldoutHeaderGroup(listHeaderClicked, listLabel);
+
+        // determining type of the element
+        int customListIntSize = EditorGUILayout.DelayedIntField("", reorderableList.serializedProperty.arraySize, GUILayout.Width(50));
+
+        EditorGUILayout.EndHorizontal();
+
+        if (listHeaderClicked)
+        {
+            if (Selection.activeTransform)
+            {
+                EditorGUILayout.Space();
+                reorderableList.DoLayoutList();
+            }
+            else
+            {
+                listHeaderClicked = false;
+            }
+        }
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
+        if (customListIntSize != reorderableList.serializedProperty.arraySize)
+        {
+            while (customListIntSize < reorderableList.serializedProperty.arraySize)
+            {
+                //reorderableList.serializedProperty.DeleteArrayElementAtIndex(reorderableList.serializedProperty.arraySize-1);
+                var i = reorderableList.serializedProperty.arraySize - 1;
+                var list = reorderableList.serializedProperty;
+            }
+        }
+
+        serializedObject.Update();
+        serializedObject.ApplyModifiedProperties();
+
+        return reorderableList;
     }
 
     // verifies the lines
