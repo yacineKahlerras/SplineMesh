@@ -1,0 +1,683 @@
+Using pre-set license
+Built from '2020.2/release' branch; Version is '2020.2.2f1 (068178b99f32) revision 426360'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 19042.1466; Version 2009; 64bit' Language: 'en' Physical Memory: 3983 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.2.2f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker6
+-projectPath
+E:/STUFF/programmation/Apps/19-EditorScripting/Spline/SplineMeshGenerator
+-logFile
+Logs/AssetImportWorker6.log
+-srvPort
+64354
+Successfully changed project path to: E:/STUFF/programmation/Apps/19-EditorScripting/Spline/SplineMeshGenerator
+E:/STUFF/programmation/Apps/19-EditorScripting/Spline/SplineMeshGenerator
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 333.28 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.2.2f1 (068178b99f32)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.2.2f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path E:/STUFF/programmation/Apps/19-EditorScripting/Spline/SplineMeshGenerator/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 4000 (ID=0x166)
+    Vendor:   
+    VRAM:     128 MB
+    Driver:   10.18.10.5069
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.2.2f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56120
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.2.2f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.2.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.007026 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 199.12 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.931 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.004973 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 224.36 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  5.320 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.53 seconds
+Refreshing native plugins compatible for Editor in 1.82 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3227 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 140.9 MB.
+System memory in use after: 141.0 MB.
+
+Unloading 30 unused Assets to reduce memory usage. Loaded Objects now: 3676.
+Total: 21.877000 ms (FindLiveObjects: 2.416600 ms CreateObjectMapping: 0.606100 ms MarkObjects: 18.344000 ms  DeleteObjects: 0.505800 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Sprites/Square.png
+  artifactKey: Guid(6f9102a6b9bcbad4bace92509d07cb8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Square.png using Guid(6f9102a6b9bcbad4bace92509d07cb8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8cf0ad2d48523848814ad95f29255176') in 1.223996 seconds
+  Import took 1.298638 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.064594 seconds.
+  path: Assets/Meshes/Train_Blender/Material.png
+  artifactKey: Guid(ce0077747d48b3947b3378f4838e3ef5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Meshes/Train_Blender/Material.png using Guid(ce0077747d48b3947b3378f4838e3ef5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '639d90becfb3b738186b981356e9acfd') in 0.252658 seconds
+  Import took 0.313599 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 767.467876 seconds.
+  path: Assets/SplineMeshGenerator
+  artifactKey: Guid(238ddef5415383d40a48ad03ef17da28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator using Guid(238ddef5415383d40a48ad03ef17da28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72f8231bf9ad4d63c556e773469ea643') in 0.004909 seconds
+  Import took 0.101754 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.029802 seconds.
+  path: Assets/SplineMeshGenerator
+  artifactKey: Guid(238ddef5415383d40a48ad03ef17da28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator using Guid(238ddef5415383d40a48ad03ef17da28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72f8231bf9ad4d63c556e773469ea643') in 0.009019 seconds
+  Import took 0.048552 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.171596 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.20 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+Temp/RoslynAnalysisRunner has been deleted.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.502 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 2.76 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3110 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 138.4 MB.
+System memory in use after: 138.5 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3685.
+Total: 9.330600 ms (FindLiveObjects: 0.888200 ms CreateObjectMapping: 0.568800 ms MarkObjects: 7.134600 ms  DeleteObjects: 0.733700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 270.288463 seconds.
+  path: Assets/SplineMeshGenerator/Prefabs/SplineMesh.prefab
+  artifactKey: Guid(42442d5f2c516f44e871f7d7c6c40cf3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Prefabs/SplineMesh.prefab using Guid(42442d5f2c516f44e871f7d7c6c40cf3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66aca92ef57e7dc66542be0242c53f77') in 0.732943 seconds
+  Import took 0.821615 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004082 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.41 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  4.412 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.85 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3110 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 140.7 MB.
+System memory in use after: 140.8 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3730.
+Total: 11.877200 ms (FindLiveObjects: 0.580800 ms CreateObjectMapping: 0.307800 ms MarkObjects: 10.590000 ms  DeleteObjects: 0.395600 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 731.893478 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/source/Desert Rocks Pack.fbx
+  artifactKey: Guid(56f38a7d3d5dcd6449b8d798f61bbf50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/source/Desert Rocks Pack.fbx using Guid(56f38a7d3d5dcd6449b8d798f61bbf50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd44bf6a597729832b8fec7589378100a') in 3.877731 seconds
+  Import took 3.945081 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.541252 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_1_albedo.png
+  artifactKey: Guid(c12b4261aca4dcf43ac3c178119debeb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_1_albedo.png using Guid(c12b4261aca4dcf43ac3c178119debeb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd5cf247dbf68f0c2da35af16436c0dd2') in 0.427703 seconds
+  Import took 0.473803 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000588 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/small_rock_AO.png
+  artifactKey: Guid(77d74f9955582f04d8cb5b19397c4a08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/small_rock_AO.png using Guid(77d74f9955582f04d8cb5b19397c4a08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'edefc555b39993be7c2b4834f52c7d68') in 0.084796 seconds
+  Import took 0.131936 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000526 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_2_normal.png
+  artifactKey: Guid(f2da1420465924c4f95a2e12b0a0e776) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_2_normal.png using Guid(f2da1420465924c4f95a2e12b0a0e776) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c166eec7c97c2df5ea15ce2ab85d9e7c') in 0.087915 seconds
+  Import took 0.149026 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000553 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/small_rock_albedo.png
+  artifactKey: Guid(4d6b5795b19b8de42a08e128a5415a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/small_rock_albedo.png using Guid(4d6b5795b19b8de42a08e128a5415a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07539591c78ce6632733faf2e7a56094') in 0.172737 seconds
+  Import took 0.225901 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000568 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/internal_ground_ao_texture.jpeg
+  artifactKey: Guid(00c3d5af24eb07f44ba6ae3d3b9e5b57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/internal_ground_ao_texture.jpeg using Guid(00c3d5af24eb07f44ba6ae3d3b9e5b57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e99832926e4b0f52b8eec891db26fdb8') in 0.076966 seconds
+  Import took 0.105438 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000537 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_1_AO.png
+  artifactKey: Guid(c5bac0f6a4d40ae4b9cd16765ca1d6aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_1_AO.png using Guid(c5bac0f6a4d40ae4b9cd16765ca1d6aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a8347e87998eb89ea013d9b39347707') in 0.069207 seconds
+  Import took 0.108499 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000547 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_3_normal.png
+  artifactKey: Guid(c36cc0615376a2e42bc6b74e2d2108c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_3_normal.png using Guid(c36cc0615376a2e42bc6b74e2d2108c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07b0c183d51a105c71feecba97345e65') in 0.038190 seconds
+  Import took 0.059947 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000524 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Small_rock_2_albedo.png
+  artifactKey: Guid(0f5ef9e5946a3314db84346076ee7193) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Small_rock_2_albedo.png using Guid(0f5ef9e5946a3314db84346076ee7193) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3cda830fd180331096b549ac038bee41') in 0.112197 seconds
+  Import took 0.163553 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000524 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_1_normal.png
+  artifactKey: Guid(50704d435b1883548b283227ef613f5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_1_normal.png using Guid(50704d435b1883548b283227ef613f5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92e8704cff4212fdcbb10c6224706001') in 0.093578 seconds
+  Import took 0.133645 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000519 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Small_rock_2_normal.png
+  artifactKey: Guid(91a7a3e459cc3984db4793073b5c9887) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Small_rock_2_normal.png using Guid(91a7a3e459cc3984db4793073b5c9887) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39661599b2f97b4ada18d430245e7258') in 0.031558 seconds
+  Import took 0.053226 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000518 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_3_albedo.png
+  artifactKey: Guid(c049fd39e463bc945a0ad607a71301ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_3_albedo.png using Guid(c049fd39e463bc945a0ad607a71301ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd389e0bd1b0ba7788b0071ccba61fb14') in 0.158875 seconds
+  Import took 0.190651 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000532 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_1_AO.png
+  artifactKey: Guid(df0c0f0052ef9ec4e900ced950011f5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_1_AO.png using Guid(df0c0f0052ef9ec4e900ced950011f5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db389833841003f6fa26b17c9c81451a') in 0.092176 seconds
+  Import took 0.139893 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000539 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_2_AO.png
+  artifactKey: Guid(611656e1055959b45b8b057709e599c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_2_AO.png using Guid(611656e1055959b45b8b057709e599c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d78940452551718bbe2923a04e39a61') in 0.103732 seconds
+  Import took 0.151516 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000538 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_2_albedo.png
+  artifactKey: Guid(1ecfa943467721b49a4f5773c35af172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_2_albedo.png using Guid(1ecfa943467721b49a4f5773c35af172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a0eaa5691e20a7337f26bae32c5b64c') in 0.158688 seconds
+  Import took 0.189780 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000524 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_3_AO.png
+  artifactKey: Guid(0cd334c51a5d23048b875b63564873aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_3_AO.png using Guid(0cd334c51a5d23048b875b63564873aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f6ca6908daf23e72a8fc9a0190fa9eb') in 0.098651 seconds
+  Import took 0.136216 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000656 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_1_albedo.png
+  artifactKey: Guid(d662de56f8f07e6419754cb8c683034d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_1_albedo.png using Guid(d662de56f8f07e6419754cb8c683034d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a27e9789c6f34d935ebc1f7a31750915') in 0.158772 seconds
+  Import took 0.203166 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000544 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_2_AO.png
+  artifactKey: Guid(c8f25deec3f8bf44bb1aa2531c8ee2cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_2_AO.png using Guid(c8f25deec3f8bf44bb1aa2531c8ee2cb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0dcf7b22323ea490fdaf53c5d7e01685') in 0.503180 seconds
+  Import took 0.538452 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000564 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_3_AO.png
+  artifactKey: Guid(62a8a9dca8d2722489613e84f75e04fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_3_AO.png using Guid(62a8a9dca8d2722489613e84f75e04fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '69c3e7884ec4991ab67e1c178cba9860') in 0.083344 seconds
+  Import took 0.105097 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000530 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/small_rock_normal.png
+  artifactKey: Guid(7c79ab5f5c168444fbb7fc9f6ff31b46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/small_rock_normal.png using Guid(7c79ab5f5c168444fbb7fc9f6ff31b46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2ef5a79f2c60371d2fa754eb9bc66ed') in 0.049331 seconds
+  Import took 0.073225 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000527 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_2_albedo.png
+  artifactKey: Guid(eef1d097a3027844692d532fb69e312f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_2_albedo.png using Guid(eef1d097a3027844692d532fb69e312f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '145b7d31096ddf621fcfa3383a1a5892') in 0.174818 seconds
+  Import took 0.210589 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000554 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_3_albedo.png
+  artifactKey: Guid(6533d20cde2703b448cfd20ee9779ccc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_3_albedo.png using Guid(6533d20cde2703b448cfd20ee9779ccc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a9baa128b80a3d119f71ee244d38474') in 0.159014 seconds
+  Import took 0.194136 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000532 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_3_normal.png
+  artifactKey: Guid(a02461a99166dc34c9e9526031a98c72) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_3_normal.png using Guid(a02461a99166dc34c9e9526031a98c72) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb9262b21a6db525e1a523d6ccec9758') in 0.115743 seconds
+  Import took 0.286197 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000608 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Small_rock_2_AO.png
+  artifactKey: Guid(4a414eb7f74c5e84688face3861f381f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Small_rock_2_AO.png using Guid(4a414eb7f74c5e84688face3861f381f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '87350f54d4fd067b7426956d0503827b') in 0.260538 seconds
+  Import took 0.288047 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000562 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_1_normal.png
+  artifactKey: Guid(9309d97c4be4fea4da16fe950d4c3229) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Big_rock_1_normal.png using Guid(9309d97c4be4fea4da16fe950d4c3229) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e41923d2523cbd187d3312a067c1e1ad') in 0.053073 seconds
+  Import took 0.092689 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000518 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_2_normal.png
+  artifactKey: Guid(c64b033c87e5da24b8e78439999da977) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rocks/textures/Midle_rock_2_normal.png using Guid(c64b033c87e5da24b8e78439999da977) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a78ceabf4e208b2f1b13e1b4441e4a49') in 0.034337 seconds
+  Import took 0.045824 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 187.801573 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Train_Blender/Material.psd
+  artifactKey: Guid(b9fbce4c04fa0e643b1d8a4c4e604661) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Train_Blender/Material.psd using Guid(b9fbce4c04fa0e643b1d8a4c4e604661) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bffea5d056690e66d98246f840b748f1') in 0.376259 seconds
+  Import took 0.425034 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 147.119119 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/Rails/source/Original/Trilhos.blend
+  artifactKey: Guid(e41595e3e4330084797c509d53ecbe2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/Rails/source/Original/Trilhos.blend using Guid(e41595e3e4330084797c509d53ecbe2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e36947ad7e5a64e82811084fcb27bcd') in 0.438417 seconds
+  Import took 0.479842 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 120.817385 seconds.
+  path: Assets/SplineMeshGenerator/Scenes/SampleScene/Global Volume Profile.asset
+  artifactKey: Guid(65b4b5d98ba74a54e9604b2e5518f501) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scenes/SampleScene/Global Volume Profile.asset using Guid(65b4b5d98ba74a54e9604b2e5518f501) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a0a50bec80e090d21f10f4317368315') in 0.030243 seconds
+  Import took 0.087894 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 317.573564 seconds.
+  path: Assets/SplineMeshGenerator/Sprites/Circle.png
+  artifactKey: Guid(288cd4af29e6df247b18ee3eab30f5e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Sprites/Circle.png using Guid(288cd4af29e6df247b18ee3eab30f5e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34cfc0c76d4f812b20a1ef24a66826c1') in 0.160277 seconds
+  Import took 0.189723 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.658135 seconds.
+  path: Assets/SplineMeshGenerator/Scripts/Player/Nigga.cs
+  artifactKey: Guid(76949e641c8cb9b4f89f358612e463fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scripts/Player/Nigga.cs using Guid(76949e641c8cb9b4f89f358612e463fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91ab77a9771febe88b5c72d7cd789749') in 0.182904 seconds
+  Import took 0.241259 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 263.445910 seconds.
+  path: Assets/SplineMeshGenerator/Scripts/Player/PaperPlane.cs
+  artifactKey: Guid(9d8ce7be0c1342c44aca4603e3ef8f4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scripts/Player/PaperPlane.cs using Guid(9d8ce7be0c1342c44aca4603e3ef8f4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee31c54bef2f1e44bddbcec4005fba02') in 0.172186 seconds
+  Import took 0.249385 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.168348 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.26 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.916 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.52 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3108 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 141.4 MB.
+System memory in use after: 141.5 MB.
+
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 3809.
+Total: 5.645500 ms (FindLiveObjects: 0.566300 ms CreateObjectMapping: 0.304400 ms MarkObjects: 4.443900 ms  DeleteObjects: 0.327900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 3443.691243 seconds.
+  path: Assets/SplineMeshGenerator/Scenes/SampleScene.unity
+  artifactKey: Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scenes/SampleScene.unity using Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '49bc75c751e9ffcf3f46fbe213228a2e') in 0.465621 seconds
+  Import took 0.549544 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 346.295079 seconds.
+  path: Assets/SplineMeshGenerator/Scripts/Mesh/NormalSolver.cs
+  artifactKey: Guid(c781ca93b03869948909ca332f57086a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scripts/Mesh/NormalSolver.cs using Guid(c781ca93b03869948909ca332f57086a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7811fcda5e324435962018e8b609f1db') in 0.089637 seconds
+  Import took 0.161934 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.490731 seconds.
+  path: Assets/SplineMeshGenerator/Scripts/Mesh/SplineMesh.cs
+  artifactKey: Guid(7849af5c57505dc4db9ef05249ceea0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scripts/Mesh/SplineMesh.cs using Guid(7849af5c57505dc4db9ef05249ceea0a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f17299657a6a298dae976bb5159bffcf') in 0.005399 seconds
+  Import took 0.134715 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005278 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 2.03 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in 10.069 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.73 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3105 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 141.4 MB.
+System memory in use after: 141.5 MB.
+
+Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 3809.
+Total: 58.383900 ms (FindLiveObjects: 1.331500 ms CreateObjectMapping: 0.573400 ms MarkObjects: 4.775500 ms  DeleteObjects: 51.699500 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 779.462761 seconds.
+  path: Assets/SplineMeshGenerator/Prefabs/MeshSpline.prefab
+  artifactKey: Guid(6c1c42496c4861041935c53c62d45aa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Prefabs/MeshSpline.prefab using Guid(6c1c42496c4861041935c53c62d45aa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bfba1a53929ef0e008db21d7b07685b1') in 0.823313 seconds
+  Import took 0.953685 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004158 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.30 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.180 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.65 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3106 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 141.4 MB.
+System memory in use after: 141.5 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3813.
+Total: 28.226700 ms (FindLiveObjects: 0.567300 ms CreateObjectMapping: 0.275600 ms MarkObjects: 4.454400 ms  DeleteObjects: 22.926000 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004130 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.16 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  4.201 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.80 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3106 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 141.5 MB.
+System memory in use after: 141.6 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3816.
+Total: 43.440300 ms (FindLiveObjects: 1.668200 ms CreateObjectMapping: 0.665600 ms MarkObjects: 40.749700 ms  DeleteObjects: 0.352200 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 381.809452 seconds.
+  path: Assets/SplineMeshGenerator/Scripts/Player/Train.cs
+  artifactKey: Guid(76949e641c8cb9b4f89f358612e463fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scripts/Player/Train.cs using Guid(76949e641c8cb9b4f89f358612e463fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f38fcd82d38008feb2bd182c3f8abd9b') in 0.053633 seconds
+  Import took 0.128840 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004357 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.79 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+Temp/RoslynAnalysisRunner has been deleted.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  6.378 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 3.68 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3106 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 141.5 MB.
+System memory in use after: 141.6 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3819.
+Total: 29.181300 ms (FindLiveObjects: 0.922300 ms CreateObjectMapping: 0.340500 ms MarkObjects: 7.692100 ms  DeleteObjects: 20.222100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005792 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 5.98 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+Temp/RoslynAnalysisRunner has been deleted.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  6.916 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 1.95 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3106 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 141.5 MB.
+System memory in use after: 141.7 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3822.
+Total: 8.980700 ms (FindLiveObjects: 1.172100 ms CreateObjectMapping: 0.502300 ms MarkObjects: 6.789500 ms  DeleteObjects: 0.512900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004078 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 1.20 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  4.369 seconds
+Platform modules already initialized, skipping
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Refreshing native plugins compatible for Editor in 2.13 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3106 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 141.6 MB.
+System memory in use after: 141.7 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 3825.
+Total: 24.944600 ms (FindLiveObjects: 6.128600 ms CreateObjectMapping: 0.795600 ms MarkObjects: 17.395200 ms  DeleteObjects: 0.615500 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 5820.929259 seconds.
+  path: Assets/SplineMeshGenerator/Scenes
+  artifactKey: Guid(69eba2e6d5f4a17488fce4e4193990fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scenes using Guid(69eba2e6d5f4a17488fce4e4193990fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7218242a0bcb0613511587ef3234cb70') in 12.401904 seconds
+  Import took 29.239798 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.122550 seconds.
+  path: Assets/SplineMeshGenerator/Scenes/SampleScene.unity
+  artifactKey: Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scenes/SampleScene.unity using Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92ff47faa24a1b56c8e61556198b9457') in 5.742339 seconds
+  Import took 5.797418 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 926.347146 seconds.
+  path: Assets/AssetStoreTools/AS_Checklist.asset
+  artifactKey: Guid(c00e466474cfc954ca9ff02d56734284) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AssetStoreTools/AS_Checklist.asset using Guid(c00e466474cfc954ca9ff02d56734284) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26ff3ea51cef7e65b87c8c776bdcebb3') in 3.226516 seconds
+  Import took 3.421839 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 128.930108 seconds.
+  path: Assets/SplineMeshGenerator/Scripts/Editor/SplineComponentEditor.cs
+  artifactKey: Guid(cbc9944e230f7b848ada4746fcf01df2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scripts/Editor/SplineComponentEditor.cs using Guid(cbc9944e230f7b848ada4746fcf01df2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a09954f0d1d90367315d6159fb188f81') in 0.768383 seconds
+  Import took 1.129607 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.483458 seconds.
+  path: Assets/SplineMeshGenerator/Scripts/Editor/SplineComponentEditor.cs
+  artifactKey: Guid(cbc9944e230f7b848ada4746fcf01df2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scripts/Editor/SplineComponentEditor.cs using Guid(cbc9944e230f7b848ada4746fcf01df2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a09954f0d1d90367315d6159fb188f81') in 0.053635 seconds
+  Import took 0.191471 seconds .
+
