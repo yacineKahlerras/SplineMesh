@@ -1,15 +1,12 @@
-![Design and Development](https://github.com/adriantwarog/adriantwarog/blob/master/freeCodeCamp.jpg)
+![Design and Development](https://github.com/yacineKahlerras/SplineMesh/blob/main/Banner.png)
 
-# Adrian Twarog
-I'm Adrian from Australia, and I do content on Design and Development. I really enjoy learning languages and frameworks like React and React Native, as well as work in WordPress. I also enjoy wireframing, ui, ux, and design in general. 
+# About
+this is a Unity Spline Tool that lets you create a Spline and Extrude a Flat 2D shape along side the Created Spline to created a 3D Object
 
-## Skills and Experience
-* ⚛ React
-* 📱 React Native
-* 💻 HTML, CSS, JS
-
-## Examples of Work
-<img src="https://github.com/adriantwarog/adriantwarog/blob/master/covid19.gif" width="512" >
+## Video Showcase
+this is a video showcasing the different stuff that you can do with it
 
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/wNiQDz2-Mu8/0.jpg)](http://www.youtube.com/watch?v=wNiQDz2-Mu8)
+<a href="https://www.youtube.com/watch?feature=player_embedded&v=wNiQDz2-Mu8
+" target="_blank"><img src="https://github.com/yacineKahlerras/SplineMesh/blob/main/Banner.png" 
+alt="IMAGE ALT TEXT HERE" width="240" height="150" border="180" /></a>
