@@ -27,6 +27,16 @@ alt="IMAGE ALT TEXT HERE" width="240" height="150" border="180" /></a>
   * Flatten x/y/z = flattens the spline on one of the axes
   * Change color = changes the color for one of the spline elements
 
+5- To Make an object follow the spline just see the Paper and Train examples in the sample scene
+
 ### II-Making a spline mesh
 
-1-
+1- Create an ampty object with a mesh filter on it and give it a flat 3D shape
+
+2- Now add a SplineMesh script to it that you'll find in (Assets/SplineMeshGenerator/Scripts/Mesh/SplineMesh.cs)
+
+3- Now Select the vertices of the flat 3D shape and then give it how many edge loops do you want in the mesh and the Threshhold angle for the shape's smootheness
+
+4- Press Play to see the shape that is created, you can also scale the edge loops in the inspector
+
+5- See the Mesh Generator example in the Sample Scene
