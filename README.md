@@ -26,3 +26,7 @@ alt="IMAGE ALT TEXT HERE" width="240" height="150" border="180" /></a>
   * Center arround object = re-posiotions spline to the transform position of the object
   * Flatten x/y/z = flattens the spline on one of the axes
   * Change color = changes the color for one of the spline elements
+
+### II-Making a spline mesh
+
+1-
