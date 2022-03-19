@@ -1,0 +1,123 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.13f1 (71691879b7f5) revision 7432472'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 19042.1466; Version 2009; 64bit' Language: 'en' Physical Memory: 3983 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.13f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker4
+-projectPath
+E:/STUFF/programmation/Apps/19-EditorScripting/Spline/SplineMeshGenerator
+-logFile
+Logs/AssetImportWorker4.log
+-srvPort
+50571
+Successfully changed project path to: E:/STUFF/programmation/Apps/19-EditorScripting/Spline/SplineMeshGenerator
+E:/STUFF/programmation/Apps/19-EditorScripting/Spline/SplineMeshGenerator
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 304.65 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.13f1 (71691879b7f5)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.13f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path E:/STUFF/programmation/Apps/19-EditorScripting/Spline/SplineMeshGenerator/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 4000 (ID=0x166)
+    Vendor:   
+    VRAM:     128 MB
+    Driver:   10.18.10.5069
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.13f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.13f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56776
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.13f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.13f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.010486 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 273.51 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  4.158 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.014734 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 261.09 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  5.885 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Shader 'Universal Render Pipeline/Particles/Lit': fallback shader 'Universal Render Pipeline/Particles/SimpleLit' not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.51 seconds
+Refreshing native plugins compatible for Editor in 3.33 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 4003 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 163.4 MB.
+System memory in use after: 163.6 MB.
+
+Unloading 70 unused Assets to reduce memory usage. Loaded Objects now: 4417.
+Total: 20.262600 ms (FindLiveObjects: 1.972500 ms CreateObjectMapping: 1.525900 ms MarkObjects: 16.558500 ms  DeleteObjects: 0.199500 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  path: Assets/SplineMeshGenerator/Scripts/Editor/SplineComponentEditor.cs
+  artifactKey: Guid(cbc9944e230f7b848ada4746fcf01df2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scripts/Editor/SplineComponentEditor.cs using Guid(cbc9944e230f7b848ada4746fcf01df2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ccb5a0e1a7ee264e0f25f678340f3781') in 0.607149 seconds 
+  Import took 0.676929 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.021660 seconds.
+  path: Assets/SplineMeshGenerator/Scripts/Editor/SplineMeshEditor.cs
+  artifactKey: Guid(c932fdc704ccd124f916d6b23a135959) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Scripts/Editor/SplineMeshEditor.cs using Guid(c932fdc704ccd124f916d6b23a135959) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd2059e026cc8bd8584bc42086553212e') in 0.002942 seconds 
+  Import took 0.068737 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 22314.491089 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/SplineMesh/Cylinder.blend
+  artifactKey: Guid(390ef7e878dc11f4098bdb5cde2f4421) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/SplineMesh/Cylinder.blend using Guid(390ef7e878dc11f4098bdb5cde2f4421) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e72180cff6244acf29b5e5384ed56953') in 28.456190 seconds 
+  Import took 35.825450 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.006195 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/SplineMesh/FlatSquare.blend
+  artifactKey: Guid(c505739edb161c24a84091e3fe8a0d64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/SplineMesh/FlatSquare.blend using Guid(c505739edb161c24a84091e3fe8a0d64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41e1c99f3b587f96a163cab2a9fbf7cd') in 1.982609 seconds 
+  Import took 2.050703 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.012070 seconds.
+  path: Assets/SplineMeshGenerator/Meshes/SplineMesh/SplineMesh.mat
+  artifactKey: Guid(500390bde6094924cb64b8ce2a9cd6fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SplineMeshGenerator/Meshes/SplineMesh/SplineMesh.mat using Guid(500390bde6094924cb64b8ce2a9cd6fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '363fd3f0e73e43cb7bd8115ea05aa418') in 0.459456 seconds 
+  Import took 0.507655 seconds .
+
